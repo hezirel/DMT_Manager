@@ -1,7 +1,7 @@
 const app = require('express')();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const router = require('./app/routes/Routes');
+const routes = require('./app/routes/Routes');
 const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true, useNewUrlParser: true }));
@@ -17,4 +17,6 @@ app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
 
-app.use('/driver', router);
+app.use('/driver', routes.driverRouter);
+app.use('/deliveries', routes.deliveryRouter);
+app.use('/clients', routes.clientRouter);

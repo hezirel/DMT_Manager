@@ -1,10 +1,20 @@
 const express = require('express');
-const router = express.Router();
+const driverRouter = express.Router();
+const deliveryRouter = express.Router();
+const clientRouter = express.Router();
 
-const getDriversController = require('../controllers/Controllers').getDriversController;
-const postDriverController = require('../controllers/Controllers').postDriverController;
+const Controllers = require('../controllers/Controllers');
 
-router.get('/', getDriversController);
-router.post('/', postDriverController);
+driverRouter.get('/', Controllers.getDrivers);
+driverRouter.post('/', Controllers.postDriver);
 
-module.exports = router;
+deliveryRouter.post('/', Controllers.postDelivery);
+
+clientRouter.get('/', Controllers.getClients);
+clientRouter.post('/', Controllers.postClient);
+
+module.exports = {
+  driverRouter,
+  deliveryRouter,
+  clientRouter
+}

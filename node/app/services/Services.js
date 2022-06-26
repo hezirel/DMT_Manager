@@ -1,9 +1,18 @@
-const Driver = require('../models/Models');
+const Models = require('../models/Models');
 
 const getDrivers = async (done) => {
   try {
-    const drivers = await Driver.find({});
+    const drivers = await Models.Driver.find({});
     done(null, drivers);
+  } catch (err) {
+    done(err, null);
+  }
+}
+
+const getClients = async (done) => {
+  try {
+    const clients = await Models.Client.find({});
+    done(null, clients);
   } catch (err) {
     done(err, null);
   }
@@ -11,7 +20,7 @@ const getDrivers = async (done) => {
 
 const postDriver = async (driver, done) => {
   try {
-    const newDriver = new Driver(driver);
+    const newDriver = new Models.Driver(driver);
     await newDriver.save();
     done(null, newDriver);
   } catch (err) {
@@ -19,5 +28,30 @@ const postDriver = async (driver, done) => {
   }
 }
 
-exports.getDrivers = getDrivers;
-exports.postDriver = postDriver;
+const postDelivery = async (delivery, done) => {
+  try {
+    const newDelivery = new Models.Delivery(delivery);
+    await newDelivery.save();
+    done(null, newDelivery);
+  } catch (err) {
+    done(err, null);
+  }
+};
+
+const postClient = async (client, done) => {
+  try {
+    const newClient = new Models.Client(client);
+    await newClient.save();
+    done(null, newClient);
+  } catch (err) {
+    done(err, null);
+  }
+}
+
+module.exports = {
+  getDrivers,
+  getClients,
+  postDriver,
+  postClient,
+  postDelivery
+}
