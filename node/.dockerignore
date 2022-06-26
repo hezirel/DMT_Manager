@@ -1,0 +1,6 @@
+Dockerfile
+.env
+.git
+.dockerignore
+.gitignore
+package-lock.json

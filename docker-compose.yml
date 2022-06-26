@@ -1,0 +1,17 @@
+services:
+  node:
+    build: node/
+    ports:
+      - "3000:3001"
+    volumes:
+      - ./node:/node
+      - /node/node_modules
+    environment:
+      - PORT=3001
+  mongo:
+    image: mongo
+    ports:
+      - "4000:27017"
+    environment:
+      - MONGOINITDB_ROOT_USERNAME=admin
+      - MONGOINITDB_ROOT_PASSWORD=admin
