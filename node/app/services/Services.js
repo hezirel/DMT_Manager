@@ -18,6 +18,15 @@ const getClients = async (done) => {
   }
 }
 
+const getDeliveries = async (done) => {
+  try {
+    const deliveries = await Models.Delivery.find({});
+    done(null, deliveries);
+  } catch (err) {
+    done(err, null);
+  }
+};
+
 const postDriver = async (driver, done) => {
   try {
     const newDriver = new Models.Driver(driver);
@@ -51,6 +60,7 @@ const postClient = async (client, done) => {
 module.exports = {
   getDrivers,
   getClients,
+  getDeliveries,
   postDriver,
   postClient,
   postDelivery

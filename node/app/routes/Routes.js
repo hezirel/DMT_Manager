@@ -5,13 +5,14 @@ const clientRouter = express.Router();
 
 const Controllers = require('../controllers/Controllers');
 
-driverRouter.get('/', Controllers.getDrivers);
-driverRouter.post('/', Controllers.postDriver);
+driverRouter.get('/get', Controllers.getDrivers);
+driverRouter.post('/add', Controllers.postDriver);
 
-deliveryRouter.post('/', Controllers.postDelivery);
+deliveryRouter.get('/', Controllers.getDeliveries);
+deliveryRouter.post('/add', Controllers.postDelivery);
 
 clientRouter.get('/', Controllers.getClients);
-clientRouter.post('/', Controllers.postClient);
+clientRouter.post('/add', Controllers.postClient);
 
 module.exports = {
   driverRouter,

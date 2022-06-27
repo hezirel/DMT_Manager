@@ -3,7 +3,7 @@ const dbServices = require('../services/Services')
 const getDrivers = async (req, res) => {
     const drivers = await dbServices.getDrivers((err, drivers) => {
       if (err) return res.status(500).json({ message: err.message });
-      else res.json(drivers);
+      else {console.log(drivers); res.json(drivers)}
     });
 };
 
@@ -28,6 +28,13 @@ const getClients = async (req, res) => {
     });
 };
 
+const getDeliveries = async (req, res) => {
+    const deliveries = await dbServices.getDeliveries((err, deliveries) => {
+      if (err) return res.status(500).json({ message: err.message });
+      else res.json(deliveries);
+    });
+  };
+
 const postClient = async (req, res) => {
     const client = await dbServices.postClient(req.query, (err, client) => {
       if (err) return res.status(500).json({ message: err.message });
@@ -41,4 +48,5 @@ module.exports = {
   postDelivery,
   postClient,
   getClients,
+  getDeliveries
 }

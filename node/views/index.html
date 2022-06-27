@@ -1,1 +1,26 @@
-
+<!DOCTYPE html>
+<html lang="en">
+    <header>
+        <title>
+            DMT Express
+        </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="x-clacks-overhead" content="GNU Terry Pratchett">
+    </header>
+    <body>
+        <div>
+            <form id="driverForm" action="/drivers/add" method="post">
+                <label for="driverName">Driver name:</label>
+                <input type="text" id="driverName" name="driverName" placeholder="Driver name"> 
+                <input type="number" id="driverAge" name="driverAge" placeholder="Driver age">
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        <div>
+            <form id="getDrivers" action="/drivers/get" method="get">
+                <input type="submit" value="Get drivers">
+        </div>
+        </form>
+    </body>
+</html>
