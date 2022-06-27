@@ -16,11 +16,11 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + 'app/views/index.html');
+  res.sendFile(__dirname + '/app/views/index.html');
 });
 
 app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
+  console.log(`Server starte on port ${PORT}`);
 });
 
 app.use('/drivers', routes.driverRouter);

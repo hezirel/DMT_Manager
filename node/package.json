@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon -w app -w index.js index.js"
+    "dev": "nodemon -w app -w index.js -e html,js index.js"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
