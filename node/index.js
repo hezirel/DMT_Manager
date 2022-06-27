@@ -4,19 +4,19 @@ const mongoose = require('mongoose');
 const routes = require('./app/routes/Routes');
 const PORT = process.env.PORT || 3000;
 
-app.use(bodyParser.urlencoded({ extended: true, useNewUrlParser: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://mongo:27017/test', { useNewUrlParser: true });
+mongoose.connect('mongodb://mongo:27017/test', { useUnifiedTopology: true, useNewUrlParser: true });
 
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
-  console.log(req.query);
+  console.log(req.body);
   next();
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/views/index.html');
+  res.sendFile(__dirname + 'app/views/index.html');
 });
 
 app.listen(PORT, () => {
