@@ -7,7 +7,11 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://mongo:27017/test', { useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect('mongodb://mongo:27017/test', { useUnifiedTopology: true, useNewUrlParser: true }).then(() => {
+  console.log('Connected to MongoDB');
+}).catch(err => {
+  console.log('Error connecting to MongoDB: ' + err);
+});
 
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
@@ -20,9 +24,10 @@ app.get('/', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server starte on port ${PORT}`);
+  console.log(`Server started on port ${PORT}`);
 });
 
+app.set("json spaces", 2);
 app.use('/drivers', routes.driverRouter);
 app.use('/deliveries', routes.deliveryRouter);
 app.use('/clients', routes.clientRouter);

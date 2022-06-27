@@ -28,7 +28,7 @@ const clientSchema = new mongoose.Schema({
 
 const placeTimeSchema = new mongoose.Schema({
   place: {type: locationSchema, required: true},
-  date: {type: Date, required: true}
+  date: {type: Date, required: true, default: Date.now}
 });
 
 const deliverySchema = new mongoose.Schema({
@@ -36,7 +36,7 @@ const deliverySchema = new mongoose.Schema({
   driver: {type: mongoose.Schema.Types.ObjectId, ref: 'Driver', required: true},
   vehicle: {type: mongoose.Schema.Types.ObjectId, ref: 'Vehicle', required: false},
   pickup: {type: placeTimeSchema, required: false},
-  delivery: {type: placeTimeSchema, required: false},
+  dropoff: {type: placeTimeSchema, required: false},
   pickupDate: {type: Date, required: false},
   deliveryDate: {type: Date, required: false},
   distance: {type: Number, required: false}

@@ -41,5 +41,33 @@
                 <input type="submit" value="Get clients">
             </form>
         </div>
+        <div>
+            <form id="getClientLocations" action="/clients/list" method="post">
+                <input type="text" id="clientId" name="clientid" placeholder="Client id">
+                <input type="submit" value="Get client locations">
+            </form>
+        </div>
+        <div>
+            <form id="postDelivery" action="/deliveries/add" method="post">
+                <input type="text" id="clientId" name="client" placeholder="Client id">
+                <input type="text" id="driverId" name="driver" placeholder="Driver id">
+                
+                <input type="text" id="locationCountry" name="country" placeholder="pickup country">
+                <input type="text" id="locationCity" name="city" placeholder="pickup city">
+                <input type="text" id="locationZip" name="zip" placeholder="pickup zip">
+                <input type="text" id="locationStreet" name="street" placeholder="pickup street">
+                <input type="text" id="locationNumber" name="number" placeholder="pickup number">
+
+                <input type="text" id="locationCountry" name="dcountry" placeholder="drop country">
+                <input type="text" id="locationCity" name="dcity" placeholder="drop city">
+                <input type="text" id="locationZip" name="dzip" placeholder="drop zip">
+                <input type="text" id="locationStreet" name="dstreet" placeholder="drop street">
+                <input type="text" id="locationNumber" name="dnumber" placeholder="drop number">
+                <input type="submit" value="Add Delivery">
+            </form>
+            <form action="/deliveries" method="get">
+                <input type="submit" value="Get deliveries">
+            </form>
+        </div>
     </body>
 </html>

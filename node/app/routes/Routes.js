@@ -13,6 +13,7 @@ deliveryRouter.post('/add', Controllers.postDelivery);
 
 clientRouter.get('/get', Controllers.getClients);
 clientRouter.post('/add', Controllers.postClient);
+clientRouter.post("/list", Controllers.getClientLocations);
 
 module.exports = {
   driverRouter,

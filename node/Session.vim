@@ -9,18 +9,19 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
 endif
 let s:shortmess_save = &shortmess
 set shortmess=aoO
-badd +22 ~/Dev/Work/DMT_manager/backend/node/index.js
-badd +43 ~/Dev/Work/DMT_manager/backend/node/app/models/Models.js
-badd +19 ~/Dev/Work/DMT_manager/backend/node/app/services/Services.js
-badd +32 ~/Dev/Work/DMT_manager/backend/node/app/controllers/Controllers.js
-badd +12 ~/Dev/Work/DMT_manager/backend/node/app/routes/Routes.js
-badd +1025 term://~/Dev/Work/DMT_manager/backend/node//28561:/bin/zsh
+badd +20 index.js
+badd +1 app/models/Models.js
+badd +20 app/services/Services.js
+badd +1 app/controllers/Controllers.js
+badd +12 app/routes/Routes.js
+badd +72 app/views/index.html
+badd +41 term://~/Dev/Work/DMT_manager/backend/node//37955:/bin/zsh
 argglobal
 %argdel
-$argadd .
-edit ~/Dev/Work/DMT_manager/backend/node/index.js
+$argadd ./
+edit app/services/Services.js
 argglobal
-balt term://~/Dev/Work/DMT_manager/backend/node//28561:/bin/zsh
+balt app/models/Models.js
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -31,12 +32,13 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 13 - ((6 * winheight(0) + 8) / 16)
+let s:l = 20 - ((7 * winheight(0) + 8) / 16)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 13
-normal! 09|
+keepjumps 20
+normal! 0
+lcd ~/Dev/Work/DMT_manager/backend/node
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
