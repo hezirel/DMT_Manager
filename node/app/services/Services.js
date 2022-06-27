@@ -49,7 +49,8 @@ const postDelivery = async (delivery, done) => {
 
 const postClient = async (client, done) => {
   try {
-    const newClient = new Models.Client(client);
+    console.log(client);
+    const newClient = new Models.Client({clientid: client.clientid, locations: new Models.Location(client)});
     await newClient.save();
     done(null, newClient);
   } catch (err) {

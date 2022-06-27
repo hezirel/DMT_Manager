@@ -11,7 +11,7 @@ driverRouter.post('/add', Controllers.postDriver);
 deliveryRouter.get('/', Controllers.getDeliveries);
 deliveryRouter.post('/add', Controllers.postDelivery);
 
-clientRouter.get('/', Controllers.getClients);
+clientRouter.get('/get', Controllers.getClients);
 clientRouter.post('/add', Controllers.postClient);
 
 module.exports = {

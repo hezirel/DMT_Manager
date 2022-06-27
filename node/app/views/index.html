@@ -21,7 +21,25 @@
         <div>
             <form id="getDrivers" action="/drivers/get" method="get">
                 <input type="submit" value="Get drivers">
+            </form>
         </div>
-        </form>
+        <div>
+            <form id="addClientForm" action="/clients/add" method="post">
+                <label for="name">Client name:</label>
+                <input type="text" id="clientName" name="clientid" placeholder="Client name"> 
+                <input type="text" id="locationCountry" name="country" placeholder="Location country">
+                <input type="text" id="locationCity" name="city" placeholder="Location city">
+                <input type="text" id="locationZip" name="zip" placeholder="Location zip">
+                <input type="text" id="locationStreet" name="street" placeholder="Location street">
+                <input type="text" id="locationNumber" name="number" placeholder="Location number">
+                <input type="text" id="locationLabel" name="label" placeholder="Location label">
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        <div>
+            <form id="getClients" action="/clients/get" method="get">
+                <input type="submit" value="Get clients">
+            </form>
+        </div>
     </body>
 </html>

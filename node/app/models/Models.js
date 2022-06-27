@@ -7,7 +7,7 @@ const locationSchema = new mongoose.Schema({
   street: {type: String, required: true},
   number: {type: Number, required: true},
   label: {type: String, required: false},
-  clientid: {type: mongoose.Schema.Types.ObjectId, ref: 'Client', required: true}
+  clientid: {type: String, required: false}
 });
 
 const driverSchema = new mongoose.Schema({
@@ -22,7 +22,7 @@ const vehicleSchema = new mongoose.Schema({
 });
 
 const clientSchema = new mongoose.Schema({
-  name: {type: String, required: true},
+  clientid: {type: String, required: true},
   locations: [locationSchema]
 });
 
