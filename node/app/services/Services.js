@@ -90,6 +90,16 @@ const getClientLocations = async (client, done) => {
   }
 };
 
+const getClientOrders = async (client, done) => {
+  try {
+    const target = await Models.Client.findOne({clientid: client.clientid});
+    const clientOrders = await Models.Delivery.find({client: target._id}).select('-__v');
+    done(null, {clientOrders, totalDistance: clientOrders.reduce((acc, cur) => acc + cur.distance, 0)/1000 + "km"});
+  } catch (err) {
+    done(err, null);
+  }
+};
+
 module.exports = {
   getDrivers,
   getClients,
@@ -97,5 +107,6 @@ module.exports = {
   postDriver,
   postClient,
   postDelivery,
+  getClientOrders,
   getClientLocations
 }

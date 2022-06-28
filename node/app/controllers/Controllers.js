@@ -66,6 +66,13 @@ const getClientLocations = async (req, res) => {
     });
 };
 
+const getClientOrders = async (req, res) => {
+    const client = await dbServices.getClientOrders(req.body, (err, client) => {
+      if (err) return res.status(500).json({ message: err.message });
+      else res.json(client);
+    });
+};
+
 module.exports = {
   getDrivers,
   postDriver,
@@ -73,5 +80,6 @@ module.exports = {
   postClient,
   getClients,
   getClientLocations,
+  getClientOrders,
   getDeliveries
 }
