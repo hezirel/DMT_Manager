@@ -3,12 +3,13 @@ const mongoose = require('mongoose');
 const locationSchema = new mongoose.Schema({
   country: {type: String, required: true},
   city: {type: String, required: true},
-  zip: {type: String, required: true},
-  street: {type: String, required: true},
-  number: {type: Number, required: true},
+  zip: {type: String, required: false},
+  street: {type: String, required: false},
+  number: {type: Number, required: false},
   label: {type: String, required: false},
   clientid: {type: String, required: false}
 });
+
 
 const driverSchema = new mongoose.Schema({
   name: {type: String, required: true},
@@ -31,9 +32,12 @@ const placeTimeSchema = new mongoose.Schema({
   date: {type: Date, required: true, default: Date.now}
 });
 
+const Driver = mongoose.model('drivers', driverSchema);
+const Client = mongoose.model('clients', clientSchema);
+
 const deliverySchema = new mongoose.Schema({
-  client: {type: mongoose.Schema.Types.ObjectId, ref: 'Client', required: false},
-  driver: {type: mongoose.Schema.Types.ObjectId, ref: 'Driver', required: true},
+  client: {type: mongoose.Schema.Types.ObjectId, ref: 'clients', required: false},
+  driver: {type: mongoose.Schema.Types.ObjectId, ref: 'drivers', required: true},
   vehicle: {type: mongoose.Schema.Types.ObjectId, ref: 'Vehicle', required: false},
   pickup: {type: placeTimeSchema, required: false},
   dropoff: {type: placeTimeSchema, required: false},
@@ -42,8 +46,6 @@ const deliverySchema = new mongoose.Schema({
   distance: {type: Number, required: false}
 });
 
-const Driver = mongoose.model('drivers', driverSchema);
-const Client = mongoose.model('clients', clientSchema);
 const Location = mongoose.model('locations', locationSchema);
 const Vehicle = mongoose.model('vehicles', vehicleSchema);
 const Delivery = mongoose.model('deliveries', deliverySchema);

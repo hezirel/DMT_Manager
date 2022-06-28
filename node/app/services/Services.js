@@ -20,8 +20,8 @@ const getClients = async (done) => {
 
 const getDeliveries = async (done) => {
   try {
-    const deliveries = await Models.Delivery.find({});
-    done(null, deliveries);
+    const deliveries = await Models.Delivery.find({}).select('-__v, -_id').populate('driver', 'name').populate('client', 'clientid');
+    done(null, {deliveries, totalDistance: deliveries.reduce((acc, cur) => acc + cur.distance, 0)/1000 + "km"});
   } catch (err) {
     done(err, null);
   }
@@ -37,22 +37,35 @@ const postDriver = async (driver, done) => {
   }
 }
 
+
 const postDelivery = async (delivery, done) => {
+  const toUrl = (location) => `${location.number} ${location.street}, ${location.zip}, ${location.city}, ${location.country}`;
+
   try {
-    const pickup = new Models.PlaceTime({place: new Models.Location(delivery.pickup)});
-    const dropoff = new Models.PlaceTime({place: new Models.Location(delivery.dropoff)});
-    console.log(pickup.place, dropoff.place);
+    const pickup = new Models.Location(delivery.pickup);
+    const dropoff = new Models.Location(delivery.dropoff);
+
     const distance = await fetch(
-      `https://api.distancematrix.ai/maps/api/distancematrix/json?origins=${pickup.place.number} ${pickup.place.street}, ${pickup.zip}, ${pickup.place.city}, ${pickup.place.country}&destinations=${dropoff.place.number} ${dropoff.place.street}, ${dropoff.place.zip}, ${dropoff.place.city}, ${dropoff.place.country}&key=TEja4AaETIRVxoxebthxCdtVh7JlO`
+      `https://api.distancematrix.ai/maps/api/distancematrix/json?origins=${toUrl(pickup)}&destinations=${toUrl(dropoff)}&key=TEja4AaETIRVxoxebthxCdtVh7JlO`
     ).then(res => res.json());
+
     console.log(distance, distance.rows[0].elements[0].distance.text);
+
     const newDelivery = new Models.Delivery({
       driver: delivery.driver,
       client: delivery.client,
-      distance: distance.rows[0].elements[0].distance.value
+      distance: distance.rows[0].elements[0].distance.value,
+      pickup: new Models.PlaceTime({place: delivery.pickup}),
+      dropoff: new Models.PlaceTime({place: delivery.dropoff})
     });
+
     await newDelivery.save();
-    done(null, newDelivery);
+    done(null, {
+      ...newDelivery.toObject(),
+      client: await Models.Client.findById(newDelivery.client).select('clientid'),
+      driver: await Models.Driver.findById(newDelivery.driver).select('name')
+    });
+
   } catch (err) {
     done(err, null);
   }
