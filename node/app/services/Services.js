@@ -45,9 +45,9 @@ const postDelivery = async (delivery, done) => {
     const pickup = new Models.Location(delivery.pickup);
     const dropoff = new Models.Location(delivery.dropoff);
 
-    const distance = await fetch(
-      `https://api.distancematrix.ai/maps/api/distancematrix/json?origins=${toUrl(pickup)}&destinations=${toUrl(dropoff)}&key=TEja4AaETIRVxoxebthxCdtVh7JlO`
-    ).then(res => res.json());
+    const distance = await fetch(`https://api.distancematrix.ai/maps/api/distancematrix/json?origins=${toUrl(pickup)}&destinations=${toUrl(dropoff)}&key=vnJCq0UEMq3qgRvRuNOPz7tapznxF`).then(res => res.json());
+
+    console.log(distance);
 
     console.log(distance, distance.rows[0].elements[0].distance.text);
 

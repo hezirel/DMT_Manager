@@ -7,7 +7,6 @@ const locationSchema = new mongoose.Schema({
   street: {type: String, required: false},
   number: {type: Number, required: false},
   label: {type: String, required: false},
-  clientid: {type: String, required: false}
 });
 const Location = mongoose.model('locations', locationSchema);
 

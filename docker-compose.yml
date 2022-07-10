@@ -9,9 +9,13 @@ services:
     environment:
       - PORT=3001
   mongo:
-    image: mongo
+    image: mvertes/alpine-mongo
     ports:
       - "4000:27017"
     environment:
       - MONGOINITDB_ROOT_USERNAME=admin
       - MONGOINITDB_ROOT_PASSWORD=admin
+  mongoexpress:
+    image: mongo-express
+    ports:
+      - "8081:8081"
