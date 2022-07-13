@@ -32,7 +32,7 @@ const placeTimeSchema = new mongoose.Schema({
   type: {type: String, enum: ['pickup', 'dropoff'], required: true},
   date: {type: Date, required: true, default: Date.now},
   client: {type: mongoose.Schema.Types.ObjectId, ref: 'clients'},
-  place: {type: locationSchema, required: true}
+  place: {type: mongoose.Schema.Types.ObjectId, ref: 'locations'}
 });
 const PlaceTime = mongoose.model('placetimes', placeTimeSchema);
 
