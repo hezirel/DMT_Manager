@@ -20,7 +20,18 @@ const getClients = async (done) => {
 
 const getDeliveries = async (done) => {
   try {
-    const deliveries = await Models.Transport.find({})
+    const deliveries = await Models.Transport.find({}).select("driver pickup dropoff").populate('driver', 'name').populate({
+      path: 'driver',
+      path: 'pickup dropoff',
+      populate: {
+        path: 'client',
+        model: 'clients',
+        path: 'place',
+        model: 'locations',
+        select: 'city'
+      }
+    });
+
     done(null, deliveries);
   } catch (err) {
     done(err, null);
@@ -72,12 +83,12 @@ const addTransport = async (transport, done) => {
   const driver = await Models.Driver.findOne({name: transport.driver});
   try {
     const pickup = new Models.PlaceTime({
-      place: new Models.Location(transport.pickup),
+      place: await new Models.Location(transport.pickup).save(),
       client: pClient._id,
       type: 'pickup'
     });
     const dropoff = new Models.PlaceTime({
-      place: new Models.Location(transport.dropoff),
+      place: await new Models.Location(transport.dropoff).save(),
       client: dClient._id,
       type: 'dropoff'
     });
@@ -86,19 +97,23 @@ const addTransport = async (transport, done) => {
     const newTransport = new Models.Transport({
       driver: driver._id,
       pickup: pickup._id,
-      dropoff: dropoff._id
+      dropoff: dropoff._id,
     });
 
-    console.log(newTransport);
     await newTransport.save();
-    const t = await Models.Transport.findOne({ _id: newTransport._id }).select("driver pickup dropoff").populate({
+    const t = await Models.Transport.findOne({ _id: newTransport._id }).populate('driver', 'name').populate({
+      path: 'pickup dropoff',
+      populate: {
+        path: 'place',
+        model: 'locations',
+        select: 'city street'
+      }
+    }).populate({
       path: 'pickup dropoff',
       populate: {
         path: 'client',
         model: 'clients',
-        select: 'clientid',
-        path: 'place',
-        model: 'locations'
+        select: 'clientid'
       }
     });
 
