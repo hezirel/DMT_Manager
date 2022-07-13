@@ -11,7 +11,8 @@ const getDrivers = async (done) => {
 
 const getClients = async (done) => {
   try {
-    const clients = await Models.Client.find({}).select('-__v');
+    const clients = await Models.Client.find({}).select('clientid');
+    console.log(clients);
     done(null, clients);
   } catch (err) {
     done(err, null);
@@ -20,15 +21,21 @@ const getClients = async (done) => {
 
 const getDeliveries = async (done) => {
   try {
-    const deliveries = await Models.Transport.find({}).select("driver pickup dropoff").populate('driver', 'name').populate({
-      path: 'driver',
+    const deliveries = await Models.Transport.find({})
+      .populate('driver', 'name')
+      .populate({
+      path: 'pickup dropoff',
+      populate: {
+        path: 'place',
+        model: 'locations',
+        select: 'country city label'
+      }
+    }).populate({
       path: 'pickup dropoff',
       populate: {
         path: 'client',
         model: 'clients',
-        path: 'place',
-        model: 'locations',
-        select: 'city'
+        select: 'clientid'
       }
     });
 
@@ -50,7 +57,7 @@ const postDriver = async (driver, done) => {
 
 const postClient = async (client, done) => {
   try {
-    const newClient = await Models.Client.findOneAndUpdate({clientid: client.clientid}, {$push: {locations: new Models.Location(client) }}, {new: true}).select('-__v') || new Models.Client({clientid: client.clientid, locations: new Models.Location(client)});
+    const newClient = await Models.Client.findOneAndUpdate({clientid: client.clientid}, {$push: {locations: await new Models.Location(client).save() }}, {new: true}).select('-__v') || new Models.Client({clientid: client.clientid, locations: await new Models.Location(client).save()});
     await newClient.save();
     done(null, newClient);
   } catch (err) {
@@ -60,7 +67,11 @@ const postClient = async (client, done) => {
 
 const getClientLocations = async (client, done) => {
   try {
-    const clientLocations = await Models.Client.findOne({clientid: client.clientid}).select('locations');
+    const clientLocations = await Models.Client.findOne({clientid: client.clientid}).populate({
+      path: 'locations',
+      model: 'locations',
+      select: 'country city street label'
+    });
     done(null, clientLocations);
   } catch (err) {
     done(err, null);
@@ -70,8 +81,12 @@ const getClientLocations = async (client, done) => {
 const getClientOrders = async (client, done) => {
   try {
     const target = await Models.Client.findOne({clientid: client.clientid});
-    const clientOrders = await Models.Delivery.find({client: target._id}).select('-__v');
-    done(null, {clientOrders, totalDistance: clientOrders.reduce((acc, cur) => acc + cur.distance, 0)/1000 + "km"});
+    const clientOrders = await Models.PlaceTime.find({client: target._id}).select("place type").populate({
+      path: 'place',
+      model: 'locations',
+      select: 'country city label'
+    });
+    done(null, {clientOrders});
   } catch (err) {
     done(err, null);
   }
@@ -101,24 +116,24 @@ const addTransport = async (transport, done) => {
     });
 
     await newTransport.save();
-    const t = await Models.Transport.findOne({ _id: newTransport._id }).populate('driver', 'name').populate({
+    const t = await Models.Transport.findOne({ _id: newTransport._id }).select("driver pickup dropoff").populate('driver', 'name -_id').populate({
       path: 'pickup dropoff',
       populate: {
         path: 'place',
         model: 'locations',
-        select: 'city street'
+        select: 'country city -_id'
       }
     }).populate({
       path: 'pickup dropoff',
       populate: {
         path: 'client',
         model: 'clients',
-        select: 'clientid'
+        select: 'clientid -_id'
       }
     });
 
     console.log(t);
-    done(null, newTransport);
+    done(null, t);
   } catch (err) {
     done(err, null);
   }

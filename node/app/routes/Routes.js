@@ -9,10 +9,9 @@ const Controllers = require('../controllers/Controllers');
 driverRouter.get('/get', Controllers.getDrivers);
 driverRouter.post('/add', Controllers.postDriver);
 
-deliveryRouter.get('/', Controllers.getDeliveries);
-deliveryRouter.post('/add', Controllers.postDelivery);
-
 transportsRouter.post('/add', Controllers.postTransport);
+
+deliveryRouter.get('/', Controllers.getDeliveries);
 
 clientRouter.get('/get', Controllers.getClients);
 clientRouter.post('/add', Controllers.postClient);

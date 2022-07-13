@@ -14,30 +14,6 @@ const postDriver = async (req, res) => {
     });
 }
 
-const postDelivery = async (req, res) => {
-    const delivery = await dbServices.postDelivery({
-      pickup: {
-        number: req.body.number,
-        street: req.body.street,
-        zip: req.body.zip,
-        city: req.body.city,
-        country: req.body.country,
-      },
-      dropoff: {
-        number: req.body.dnumber,
-        street: req.body.dstreet,
-        zip: req.body.dzip,
-        city: req.body.dcity,
-        country: req.body.dcountry,
-      },
-      driver: req.body.driver,
-      client: req.body.client
-    }, (err, delivery) => {
-      if (err) return res.status(500).json({ message: err.message });
-      else res.json(delivery);
-    });
-}
-
 const getClients = async (req, res) => {
     const clients = await dbServices.getClients((err, clients) => {
       if (err) return res.status(500).json({ message: err.message });
@@ -101,7 +77,6 @@ const postTransport = async (req, res) => {
 module.exports = {
   getDrivers,
   postDriver,
-  postDelivery,
   postClient,
   getClients,
   getClientLocations,
