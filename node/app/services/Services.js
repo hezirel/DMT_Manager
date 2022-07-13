@@ -111,27 +111,24 @@ const addTransport = async (transport, done) => {
     await dropoff.save();
     const newTransport = new Models.Transport({
       driver: driver._id,
-      pickup: pickup._id,
-      dropoff: dropoff._id,
+      deliveries: [pickup._id, dropoff._id]
     });
 
     await newTransport.save();
-    const t = await Models.Transport.findOne({ _id: newTransport._id }).select("driver pickup dropoff").populate('driver', 'name -_id').populate({
-      path: 'pickup dropoff',
-      populate: {
-        path: 'place',
-        model: 'locations',
-        select: 'country city -_id'
-      }
-    }).populate({
-      path: 'pickup dropoff',
+    const t = await Models.Transport.findOne({ _id: newTransport._id }).select("driver deliveries").populate('driver', 'name -_id').populate({
+      path: 'deliveries',
       populate: {
         path: 'client',
         model: 'clients',
         select: 'clientid -_id'
-      }
-    });
-
+      }}).populate({
+        path: 'deliveries',
+        populate: {
+          path: 'place',
+          model: 'locations',
+          select: 'country city street -_id'
+        }
+      }).select('-_id');
     console.log(t);
     done(null, t);
   } catch (err) {
