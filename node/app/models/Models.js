@@ -12,7 +12,6 @@ const Location = mongoose.model('locations', locationSchema);
 
 const driverSchema = new mongoose.Schema({
   name: {type: String, required: true},
-  age: {type: Number, required: true}
 });
 const Driver = mongoose.model('drivers', driverSchema);
 
@@ -25,33 +24,30 @@ const Vehicle = mongoose.model('vehicles', vehicleSchema);
 
 const clientSchema = new mongoose.Schema({
   clientid: {type: String, required: true},
-  locations: [locationSchema]
+  locations: [{type: mongoose.Schema.Types.ObjectId, ref: 'locations'}]
 });
 const Client = mongoose.model('clients', clientSchema);
 
 const placeTimeSchema = new mongoose.Schema({
-  place: {type: locationSchema, required: true},
-  date: {type: Date, required: true, default: Date.now}
+  type: {type: String, enum: ['pickup', 'dropoff'], required: true},
+  date: {type: Date, required: true, default: Date.now},
+  client: {type: mongoose.Schema.Types.ObjectId, ref: 'clients'},
+  place: {type: locationSchema, required: true}
 });
 const PlaceTime = mongoose.model('placetimes', placeTimeSchema);
 
-const deliverySchema = new mongoose.Schema({
-  client: {type: mongoose.Schema.Types.ObjectId, ref: 'clients', required: false},
-  driver: {type: mongoose.Schema.Types.ObjectId, ref: 'drivers', required: true},
-  vehicle: {type: mongoose.Schema.Types.ObjectId, ref: 'vehicles', required: false},
-  pickup: {type: placeTimeSchema, required: false},
-  dropoff: {type: placeTimeSchema, required: false},
-  pickupDate: {type: Date, required: false},
-  deliveryDate: {type: Date, required: false},
-  distance: {type: Number, required: false}
+const transportSchema = new mongoose.Schema({
+  driver: {type: mongoose.Schema.Types.ObjectId, ref: 'drivers'},
+  pickup: {type: mongoose.Schema.Types.ObjectId, ref: 'placetimes', required: true},
+  dropoff: {type: mongoose.Schema.Types.ObjectId, ref: 'placetimes', required: true},
 });
-const Delivery = mongoose.model('deliveries', deliverySchema);
+const Transport = mongoose.model('transports', transportSchema);
 
 module.exports = {
   Driver,
   Client,
   Location,
   Vehicle,
-  Delivery,
+  Transport,
   PlaceTime
 };

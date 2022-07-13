@@ -100,6 +100,43 @@ const getClientOrders = async (client, done) => {
   }
 };
 
+const addTransport = async (transport, done) => {
+  const pClient = await Models.Client.findOne({clientid: transport.pickup.client});
+  const dClient = await Models.Client.findOne({clientid: transport.dropoff.client});
+  try {
+    const pickup = new Models.PlaceTime({
+      place: new Models.Location(transport.pickup),
+      client: pClient._id,
+      type: 'pickup'
+    });
+    const dropoff = new Models.PlaceTime({
+      place: new Models.Location(transport.dropoff),
+      client: dClient._id,
+      type: 'dropoff'
+    });
+    await pickup.save()
+    await dropoff.save();
+    const newTransport = new Models.Transport({
+      driver: await Models.Driver.findOne({name: transport.driver}).select('_id'),
+      pickup: pickup._id,
+      dropoff: dropoff._id
+    });
+    await newTransport.save();
+    const t = await Models.Transport.findOne({_id: newTransport._id}).select("driver pickup dropoff").populate("driver", "name").populate({
+      path: 'pickup dropoff',
+      populate: {
+        path: 'client',
+        model: 'clients',
+        select: 'clientid'
+      },
+    });
+    console.log(t);
+    done(null, newTransport);
+  } catch (err) {
+    done(err, null);
+  }
+};
+
 module.exports = {
   getDrivers,
   getClients,
@@ -108,5 +145,6 @@ module.exports = {
   postClient,
   postDelivery,
   getClientOrders,
-  getClientLocations
+  getClientLocations,
+  addTransport
 }

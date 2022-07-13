@@ -13,9 +13,7 @@
             <form id="diverForm" action="/drivers/add" method="post">
                 <label for="name">Driver name:</label>
                 <input type="text" id="driverName" name="name" placeholder="Driver name"> 
-                <label for="age">Driver age:</label>
-                <input type="number" id="driverAge" name="age" placeholder="Driver age">
-                <input type="submit" value="Submit">
+                <button type="submit">Add driver</button>
             </form>
         </div>
         <div>
@@ -54,22 +52,24 @@
             </form>
         </div>
         <div>
-            <form id="postDelivery" action="/deliveries/add" method="post">
-                <input type="text" id="clientId" name="client" placeholder="Client id">
+            <form id="postDelivery" action="/transports/add" method="post">
                 <input type="text" id="driverId" name="driver" placeholder="Driver id">
-                
-                <input type="text" id="locationCountry" name="country" placeholder="pickup country">
-                <input type="text" id="locationCity" name="city" placeholder="pickup city">
-                <input type="text" id="locationZip" name="zip" placeholder="pickup zip">
-                <input type="text" id="locationStreet" name="street" placeholder="pickup street">
-                <input type="text" id="locationNumber" name="number" placeholder="pickup number">
 
-                <input type="text" id="locationCountry" name="dcountry" placeholder="drop country">
-                <input type="text" id="locationCity" name="dcity" placeholder="drop city">
-                <input type="text" id="locationZip" name="dzip" placeholder="drop zip">
-                <input type="text" id="locationStreet" name="dstreet" placeholder="drop street">
-                <input type="text" id="locationNumber" name="dnumber" placeholder="drop number">
-                <input type="submit" value="Add Delivery">
+                <input type="text" id="pickupclientId" name="pclient" placeholder="Client id">
+                <input type="text" id="pickuplocationCountry" name="pcountry" placeholder="pickup country">
+                <input type="text" id="pickuplocationCity" name="pcity" placeholder="pickup city">
+                <input type="text" id="pickuplocationZip" name="pzip" placeholder="pickup zip">
+                <input type="text" id="pickuplocationStreet" name="pstreet" placeholder="pickup street">
+                <input type="text" id="pickuplocationNumber" name="pnumber" placeholder="pickup number">
+
+                <input type="text" id="dropclientId" name="dclient" placeholder="Client id">
+                <input type="text" id="droplocationCountry" name="dcountry" placeholder="drop country">
+                <input type="text" id="droplocationCity" name="dcity" placeholder="drop city">
+                <input type="text" id="droplocationZip" name="dzip" placeholder="drop zip">
+                <input type="text" id="droplocationStreet" name="dstreet" placeholder="drop street">
+                <input type="text" id="droplocationNumber" name="dnumber" placeholder="drop number">
+
+                <input type="submit" value="Add Transport">
             </form>
             <form action="/deliveries" method="get">
                 <input type="submit" value="Get deliveries">

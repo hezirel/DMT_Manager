@@ -14,8 +14,8 @@ mongoose.connect('mongodb://mongo:27017/test', { useUnifiedTopology: true, useNe
 });
 
 app.use((req, res, next) => {
-  console.log(`${req.method} ${req.url}`);
-  console.log(req.body);
+  //console.log(`${req.method} ${req.url}`);
+  //console.log(req.body);
   next();
 });
 
@@ -31,3 +31,4 @@ app.set("json spaces", 2);
 app.use('/drivers', routes.driverRouter);
 app.use('/deliveries', routes.deliveryRouter);
 app.use('/clients', routes.clientRouter);
+app.use('/transports', routes.transportsRouter);
