@@ -2,20 +2,31 @@ const Models = require('../models/Models');
 
 const getDrivers = async (done) => {
   try {
-    const drivers = await Models.Driver.find({}).select("name -_id").then((drivers) => drivers);
-    const del = await Models.Transport.find({}).select("driver deliveries").populate('driver', 'name -_id');
-
-    const res = drivers.map((driver) => {
-      const drivername = driver.name;
-
-      const parcelList = del.filter((delivery) => delivery.driver.name === drivername).map((delivery) => delivery.deliveries);
-
+    const drivers = await Models.Driver.find({}).select("name").then((drivers) => drivers.map((driver) => driver));
+    const deliveries = drivers.map(async (driver) => {
+      const list = await Promise.resolve(
+        Models.Transport.find({driver: driver._id})
+        .select("deliveries -_id"))
+        .then((list) => list.map((transport) => transport.deliveries))
+        .then((list) => list.flat());
       return {
-        driver: drivername,
-        deliveries: parcelList.flat()
+        name: driver.name,
+        deliveries: list
       }
     });
-    done(null, res);
+    let res = await Promise.all(deliveries);
+    console.log(res);
+    const ser = res.map(async (driver) => {
+      const livraisons = await Promise.resolve(
+        Models.PlaceTime.find({_id: {$in: driver.deliveries}}).populate('place', 'country city street label -_id').populate('client', 'clientid -_id').select('client type place -_id'));
+      return {
+        name: driver.name,
+        count: livraisons.length,
+        livraisons: livraisons
+      }
+    });
+    const result = await Promise.all(ser);
+    done(null, result);
   } catch (err) {
     done(err, null);
   }
@@ -122,26 +133,13 @@ const addTransport = async (transport, done) => {
     const newTransport = new Models.Transport({
       driver: driver._id,
       deliveries: [pickup._id, dropoff._id]
-    });
+    }).populate('deliveries', '-_id');
 
     await newTransport.save();
-    const t = await Models.Transport.findOne({ _id: newTransport._id }).select("driver deliveries").populate('driver', 'name -_id').populate({
-      path: 'deliveries',
-      populate: {
-        path: 'client',
-        model: 'clients',
-        select: 'clientid -_id'
-      },
-    }).populate({
-        path: 'deliveries',
-        populate: {
-          path: 'place',
-          model: 'locations',
-          select: 'country city street -_id'
-        }
-      }).select('-_id');
-    console.log(t);
-    done(null, t);
+    console.log(newTransport);
+    const t = await Models.Transport.findOne({ _id: newTransport._id }).select("driver deliveries").populate('driver', 'name -_id');
+    const p = await Models.PlaceTime.find({ _id: { $in: t.deliveries } }).select("client type place -_id").populate('place', 'country city street label').populate('client', 'clientid');
+    done(null, {driver: t.driver.name, livraisons: p});
   } catch (err) {
     done(err, null);
   }
