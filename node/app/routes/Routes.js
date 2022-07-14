@@ -6,17 +6,16 @@ const transportsRouter = express.Router();
 
 const Controllers = require('../controllers/Controllers');
 
-driverRouter.get('/get', Controllers.getDrivers);
 driverRouter.post('/add', Controllers.postDriver);
+driverRouter.get('/get', Controllers.getDrivers);
+
+clientRouter.post('/add', Controllers.postClient);
+clientRouter.get('/get', Controllers.getClients);
+clientRouter.post('/list', Controllers.getClientLocations);
 
 transportsRouter.post('/add', Controllers.postTransport);
-
 deliveryRouter.get('/', Controllers.getDeliveries);
 
-clientRouter.get('/get', Controllers.getClients);
-clientRouter.post('/add', Controllers.postClient);
-clientRouter.post("/list", Controllers.getClientLocations);
-clientRouter.post("/orders", Controllers.getClientOrders);
 
 module.exports = {
   driverRouter,

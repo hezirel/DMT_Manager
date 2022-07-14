@@ -1,5 +1,15 @@
 const Models = require('../models/Models');
 
+const postDriver = async (driver, done) => {
+  try {
+    const newDriver = new Models.Driver(driver);
+    await newDriver.save();
+    done(null, newDriver);
+  } catch (err) {
+    done(err, null);
+  }
+}
+
 const getDrivers = async (done) => { try {
     const drivers = await Models.Driver.find({}).select("name").then((drivers) => drivers.map((driver) => driver));
 
@@ -42,63 +52,6 @@ const getClients = async (done) => {
   }
 }
 
-const getDeliveries = async (done) => {
-  try {
-    const transports = await Models.Transport.find({})
-      .select("driver deliveries")
-      .populate('driver', 'name -_id')
-      .populate('deliveries', '-_id')
-      .populate({
-      path: 'deliveries',
-      populate: {
-        path: 'place',
-        model: 'locations',
-        select: 'country city label'
-      }
-    })
-      .populate({
-      path: 'deliveries',
-      populate: {
-        path: 'client',
-        model: 'clients',
-        select: 'clientid'
-      },
-      select: 'client type place date -_id'
-    }).then((transports) => transports.map((transport) => ({
-        driver: transport.driver.name,
-        pickup: {
-          client: transport.deliveries[0].client.clientid,
-          country: transport.deliveries[0].place.country,
-          city: transport.deliveries[0].place.city,
-          label: transport.deliveries[0].place.label,
-          date: transport.deliveries[0].date.toISOString().split('T')[0].split('-').reverse().join('/')
-        },
-        dropoff: {
-          client: transport.deliveries[1].client.clientid,
-          country: transport.deliveries[1].place.country,
-          city: transport.deliveries[1].place.city,
-          label: transport.deliveries[1].place.label,
-          date: transport.deliveries[1].date.toISOString().split('T')[0].split('-').reverse().join('/')
-        }
-      })));
-
-
-    done(null, transports);
-  } catch (err) {
-    done(err, null);
-  }
-};
-
-const postDriver = async (driver, done) => {
-  try {
-    const newDriver = new Models.Driver(driver);
-    await newDriver.save();
-    done(null, newDriver);
-  } catch (err) {
-    done(err, null);
-  }
-}
-
 const postClient = async (client, done) => {
   try {
     Models.Client.findOne({clientid: client.clientid}, async (err, res) => {
@@ -128,20 +81,6 @@ const getClientLocations = async (client, done) => {
       select: 'country city label'
     });
     done(null, clientLocations);
-  } catch (err) {
-    done(err, null);
-  }
-};
-
-const getClientOrders = async (client, done) => {
-  try {
-    const target = await Models.Client.findOne({clientid: client.clientid});
-    const clientOrders = await Models.PlaceTime.find({client: target._id}).select("place type").populate({
-      path: 'place',
-      model: 'locations',
-      select: 'country city label'
-    });
-    done(null, {clientOrders});
   } catch (err) {
     done(err, null);
   }
@@ -218,13 +157,60 @@ const addTransport = async (transport, done) => {
   }
 };
 
+const getDeliveries = async (done) => {
+  try {
+    const transports = await Models.Transport.find({})
+      .select("driver deliveries")
+      .populate('driver', 'name -_id')
+      .populate('deliveries', '-_id')
+      .populate({
+      path: 'deliveries',
+      populate: {
+        path: 'place',
+        model: 'locations',
+        select: 'country city label'
+      }
+    })
+      .populate({
+      path: 'deliveries',
+      populate: {
+        path: 'client',
+        model: 'clients',
+        select: 'clientid'
+      },
+      select: 'client type place date -_id'
+    }).then((transports) => transports.map((transport) => ({
+        driver: transport.driver.name,
+        pickup: {
+          client: transport.deliveries[0].client.clientid,
+          country: transport.deliveries[0].place.country,
+          city: transport.deliveries[0].place.city,
+          label: transport.deliveries[0].place.label,
+          date: transport.deliveries[0].date.toISOString().split('T')[0].split('-').reverse().join('/')
+        },
+        dropoff: {
+          client: transport.deliveries[1].client.clientid,
+          country: transport.deliveries[1].place.country,
+          city: transport.deliveries[1].place.city,
+          label: transport.deliveries[1].place.label,
+          date: transport.deliveries[1].date.toISOString().split('T')[0].split('-').reverse().join('/')
+        }
+      })));
+
+
+    done(null, transports);
+  } catch (err) {
+    done(err, null);
+  }
+};
+
+
 module.exports = {
-  getDrivers,
-  getClients,
-  getDeliveries,
   postDriver,
+  getDrivers,
   postClient,
-  getClientOrders,
+  getClients,
   getClientLocations,
-  addTransport
+  addTransport,
+  getDeliveries,
 }

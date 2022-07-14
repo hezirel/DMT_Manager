@@ -1,5 +1,19 @@
 const mongoose = require('mongoose');
 
+const vehicleSchema = new mongoose.Schema({
+  brand: {type: String, required: true},
+  model: {type: String, required: true},
+  plate: {type: String, required: true}
+});
+
+const Vehicle = mongoose.model('vehicles', vehicleSchema);
+
+const driverSchema = new mongoose.Schema({
+  name: {type: String, required: true},
+});
+
+const Driver = mongoose.model('drivers', driverSchema);
+
 const locationSchema = new mongoose.Schema({
   country: {type: String, required: true},
   city: {type: String, required: true},
@@ -8,22 +22,12 @@ const locationSchema = new mongoose.Schema({
   number: {type: Number, required: false},
   label: {type: String, required: false},
 });
+
 const Location = mongoose.model('locations', locationSchema);
 
-const driverSchema = new mongoose.Schema({
-  name: {type: String, required: true},
-});
-const Driver = mongoose.model('drivers', driverSchema);
-
-const vehicleSchema = new mongoose.Schema({
-  brand: {type: String, required: true},
-  model: {type: String, required: true},
-  plate: {type: String, required: true}
-});
-const Vehicle = mongoose.model('vehicles', vehicleSchema);
 
 const clientSchema = new mongoose.Schema({
-  clientid: {type: String, required: true},
+  name: {type: String, required: true},
   locations: [{type: mongoose.Schema.Types.ObjectId, ref: 'locations'}]
 });
 const Client = mongoose.model('clients', clientSchema);
@@ -38,13 +42,12 @@ const PlaceTime = mongoose.model('placetimes', placeTimeSchema);
 
 const transportSchema = new mongoose.Schema({
   driver: {type: mongoose.Schema.Types.ObjectId, ref: 'drivers'},
-  deliveries: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'placetimes' 
-    } , { 
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'placetimes'} ]
+  deliveries: [{
+    type: Object,
+    pickup: {type: mongoose.Schema.Types.ObjectId, ref: 'placetimes'},
+    dropoff: {type: mongoose.Schema.Types.ObjectId, ref: 'placetimes'},
+    required: true
+  }]
 });
 
 const Transport = mongoose.model('transports', transportSchema);

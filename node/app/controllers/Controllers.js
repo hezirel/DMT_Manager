@@ -1,12 +1,5 @@
 const dbServices = require('../services/Services')
 
-const getDrivers = async (req, res) => {
-    const drivers = await dbServices.getDrivers((err, drivers) => {
-      if (err) return res.status(500).json({ message: err.message });
-      else {res.json(drivers)}
-    });
-};
-
 const postDriver = async (req, res) => {
     const drivers = await dbServices.postDriver(req.body, (err, driver) => {
       if (err) return res.status(500).json({ message: err.message });
@@ -14,19 +7,13 @@ const postDriver = async (req, res) => {
     });
 }
 
-const getClients = async (req, res) => {
-    const clients = await dbServices.getClients((err, clients) => {
+const getDrivers = async (req, res) => {
+    const drivers = await dbServices.getDrivers((err, drivers) => {
       if (err) return res.status(500).json({ message: err.message });
-      else res.json(clients);
+      else {res.json(drivers)}
     });
 };
 
-const getDeliveries = async (req, res) => {
-    const deliveries = await dbServices.getDeliveries((err, deliveries) => {
-      if (err) return res.status(500).json({ message: err.message });
-      else res.render('deliveries', {del: deliveries});
-    });
-  };
 
 const postClient = async (req, res) => {
     const client = await dbServices.postClient(req.body, (err, client) => {
@@ -35,15 +22,15 @@ const postClient = async (req, res) => {
     });
 };
 
-const getClientLocations = async (req, res) => {
-    const client = await dbServices.getClientLocations(req.body, (err, client) => {
+const getClients = async (req, res) => {
+    const clients = await dbServices.getClients((err, clients) => {
       if (err) return res.status(500).json({ message: err.message });
-      else res.json(client);
+      else res.json(clients);
     });
 };
 
-const getClientOrders = async (req, res) => {
-    const client = await dbServices.getClientOrders(req.body, (err, client) => {
+const getClientLocations = async (req, res) => {
+    const client = await dbServices.getClientLocations(req.body, (err, client) => {
       if (err) return res.status(500).json({ message: err.message });
       else res.json(client);
     });
@@ -66,13 +53,19 @@ const postTransport = async (req, res) => {
     });
 };
 
+const getDeliveries = async (req, res) => {
+    const deliveries = await dbServices.getDeliveries((err, deliveries) => {
+      if (err) return res.status(500).json({ message: err.message });
+      else res.render('deliveries', {del: deliveries});
+    });
+  };
+
 module.exports = {
   getDrivers,
   postDriver,
   postClient,
   getClients,
   getClientLocations,
-  getClientOrders,
   getDeliveries,
   postTransport
 }
