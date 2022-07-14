@@ -24,7 +24,7 @@ const getClients = async (req, res) => {
 const getDeliveries = async (req, res) => {
     const deliveries = await dbServices.getDeliveries((err, deliveries) => {
       if (err) return res.status(500).json({ message: err.message });
-      else res.json(deliveries);
+      else res.render('deliveries', {del: deliveries});
     });
   };
 

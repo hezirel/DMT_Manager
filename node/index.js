@@ -3,9 +3,13 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const routes = require('./app/routes/Routes');
 const PORT = process.env.PORT || 3000;
+const pug = require('pug');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.set('views', './app/views');
+app.set('view engine', 'pug');
 
 mongoose.connect('mongodb://mongo:27017/test', { useUnifiedTopology: true, useNewUrlParser: true }).then(() => {
   console.log('Connected to MongoDB');

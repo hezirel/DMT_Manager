@@ -75,7 +75,8 @@ const getDeliveries = async (done) => {
           'localField': 'deliveries.place',
           'foreignField': '_id',
           'as': 'deliveries.place',
-        }}
+        }},
+
       ]);
 
     const res = await Promise.all(deliveries);
@@ -170,7 +171,7 @@ const addTransport = async (transport, done) => {
 
     await newTransport.save();
     const t = await Models.Transport.findOne({ _id: newTransport._id }).select("driver deliveries").populate('driver', 'name -_id');
-    const p = await Models.PlaceTime.find({ _id: { $in: t.deliveries } }).select("client type place -_id").populate('place', 'country city street label').populate('client', 'clientid');
+    const p = await Models.PlaceTime.find({ _id: { $in: t.deliveries } }).select("client type place date -_id").populate('place', 'country city street label').populate('client', 'clientid');
     done(null, {driver: t.driver.name, livraisons: p});
   } catch (err) {
     done(err, null);

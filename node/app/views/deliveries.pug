@@ -1,0 +1,22 @@
+doctype html
+
+html(lang='en')
+  body
+    table.table
+      tr
+        th Driver
+        th Type
+        th Client
+        th Date
+        th Country
+        th City
+        th Street
+      each n in del
+        tr
+          td= n.driver
+          td= n.deliveries.type
+          td= n.deliveries.client
+          td= n.date
+          td= n.deliveries.place
+          td= n.deliveries.city
+          td= n.deliveries.street
