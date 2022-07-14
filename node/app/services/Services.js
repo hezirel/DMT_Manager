@@ -78,20 +78,21 @@ const postDriver = async (driver, done) => {
 
 const postClient = async (client, done) => {
   try {
-    if (Models.Client.find({clientid: client.clientid}).count() === 0)
-    {
+    Models.Client.findOne({clientid: client.clientid}, async (err, res) => {
+      if (res) {
       const update = await Models.Client.findOneAndUpdate({clientid: client.clientid}, { $push: {
         locations: await new Models.Location(client).save()
-      }}).populate('locations', 'country city street label');
+      }}, { new: true} ).populate('locations', 'country city street label');
       done(null, update);
-    } 
+      } else {
       console.log('client not found');
       const newClient = await new Models.Client({
         clientid: client.clientid,
         locations: [await new Models.Location(client).save()]
-      }).populate('locations', 'country city street label');
+      }).populate('locations', 'country city street label').save();
       console.log(newClient);
       done(null, newClient);
+      }});
   } catch (err) {
     done(err, null);
   }
