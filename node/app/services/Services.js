@@ -134,25 +134,21 @@ const addTransport = async (transport, done) => {
       place: await new Models.Location(transport.pickup).save(),
       client: pClient._id,
       type: 'pickup'
-    });
+    }).save().then((res) => res);
     const dropoff = new Models.PlaceTime({
       place: await new Models.Location(transport.dropoff).save(),
       client: dClient._id,
       type: 'dropoff'
-    });
-    await pickup.save()
-    await dropoff.save();
-    const parcel = new Models.Parcel({
-        pickup: pickup._id,
-        dropoff: dropoff._id,
-      }).save()
+    }).save().then((res) => res);
+
+    const r = await Promise.all([pickup, dropoff]);
+    const res = await r.map((res) => res._id);
     const newTransport = new Models.Transport({
       driver: driver._id,
-      deliveries: [parcel._id]
+      deliveries: res
     }).populate('deliveries', '-_id');
 
     await newTransport.save();
-    console.log(newTransport);
     const t = await Models.Transport.findOne({ _id: newTransport._id }).select("driver deliveries").populate('driver', 'name -_id');
     const p = await Models.PlaceTime.find({ _id: { $in: t.deliveries } }).select("client type place -_id").populate('place', 'country city street label').populate('client', 'clientid');
     done(null, {driver: t.driver.name, livraisons: p});
