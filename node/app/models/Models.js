@@ -47,6 +47,7 @@ const transportSchema = new mongoose.Schema({
   driver: {type: mongoose.Schema.Types.ObjectId, ref: 'drivers'},
   deliveries: [{type: mongoose.Schema.Types.ObjectId, ref: 'parcels'}],
 });
+
 const Transport = mongoose.model('transports', transportSchema);
 
 module.exports = {

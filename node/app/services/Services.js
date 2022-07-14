@@ -47,19 +47,26 @@ const getClients = async (done) => {
 
 const getDeliveries = async (done) => {
   try {
-    const deliveries = await Models.Transport.find({})
-      .select("driver deliveries")
-      .populate('driver', 'name -_id')
-      .populate({
-        path: 'deliveries',
-        populate: {
-          path: 'place',
-          populate: {
-            path: 'client',
-            select: 'clientid'
-          }
-        }
-      }).then((deliveries) => deliveries.map((delivery) => delivery.deliveries));
+    const deliveries = await Models.Transport
+      .aggregate([
+        { '$unwind': '$deliveries' },
+        { '$lookup': {
+          'from': 'drivers',
+          'localField': 'driver',
+          'foreignField': '_id',
+          'as': 'driver'
+        }},
+        { '$unwind': '$driver' },
+        { '$lookup': {
+          'from': 'parcels',
+          'localField': 'deliveries',
+          'foreignField': '_id',
+          'as': 'deliveries.parcels'
+        }},
+        { '$unwind': '$deliveries' }
+      ]);
+
+
     const res = await Promise.all(deliveries);
     console.log(res);
     done(null, res);
@@ -82,6 +89,16 @@ const postClient = async (client, done) => {
   try {
     const newClient = await Models.Client.findOneAndUpdate({clientid: client.clientid}, {$push: {locations: await new Models.Location(client).save() }}, {new: true}).select('-__v') || new Models.Client({clientid: client.clientid, locations: await new Models.Location(client).save()});
     await newClient.save();
+    const res = newClient.aggregate([
+      { '$unwind': '$locations' },
+      { '$lookup': {
+        'from': 'locations',
+        'localField': 'locations',
+        'foreignField': '_id',
+        'as': 'locations'
+      }},
+      { '$unwind': '$locations' }
+    ]);
     done(null, newClient);
   } catch (err) {
     done(err, null);
@@ -132,9 +149,13 @@ const addTransport = async (transport, done) => {
     });
     await pickup.save()
     await dropoff.save();
+    const parcel = new Models.Parcel({
+        pickup: pickup,
+        dropoff: dropoff,
+      }).save()
     const newTransport = new Models.Transport({
       driver: driver._id,
-      deliveries: [pickup._id, dropoff._id]
+      deliveries: [parcel._id]
     }).populate('deliveries', '-_id');
 
     await newTransport.save();
