@@ -37,14 +37,15 @@ const placeTimeSchema = new mongoose.Schema({
 const PlaceTime = mongoose.model('placetimes', placeTimeSchema);
 
 const parcelSchema = new mongoose.Schema({
-  address: {type: String, required: true},
+  pickup: {type: mongoose.Schema.Types.ObjectId, ref: 'placetimes'},
+  dropoff: {type: mongoose.Schema.Types.ObjectId, ref: 'placetimes'},
 });
 
 const Parcel = mongoose.model('parcels', placeTimeSchema);
 
 const transportSchema = new mongoose.Schema({
   driver: {type: mongoose.Schema.Types.ObjectId, ref: 'drivers'},
-  deliveries: [{type: mongoose.Schema.Types.ObjectId, ref: 'placetimes'}],
+  deliveries: [{type: mongoose.Schema.Types.ObjectId, ref: 'parcels'}],
 });
 const Transport = mongoose.model('transports', transportSchema);
 

@@ -2,8 +2,20 @@ const Models = require('../models/Models');
 
 const getDrivers = async (done) => {
   try {
-    const drivers = await Models.Driver.find({}).select('-__v');
-    done(null, drivers);
+    const drivers = await Models.Driver.find({}).select("name -_id").then((drivers) => drivers);
+    const del = await Models.Transport.find({}).select("driver deliveries").populate('driver', 'name -_id');
+
+    const res = drivers.map((driver) => {
+      const drivername = driver.name;
+
+      const parcelList = del.filter((delivery) => delivery.driver.name === drivername).map((delivery) => delivery.deliveries);
+
+      return {
+        driver: drivername,
+        deliveries: parcelList.flat()
+      }
+    });
+    done(null, res);
   } catch (err) {
     done(err, null);
   }
@@ -21,23 +33,21 @@ const getClients = async (done) => {
 
 const getDeliveries = async (done) => {
   try {
-    const deliveries = await Models.Transport.find({})
-      .populate('driver', 'name')
-      .populate({
-      path: 'pickup dropoff',
-      populate: {
-        path: 'place',
-        model: 'locations',
-        select: 'country city label'
-      }
-    }).populate({
-      path: 'pickup dropoff',
+    const deliveries = await Models.Transport.find({}).select("driver deliveries").populate('driver', 'name -_id').populate({
+      path: 'deliveries',
       populate: {
         path: 'client',
         model: 'clients',
-        select: 'clientid'
-      }
-    });
+        select: 'clientid -_id'
+      },
+    }).populate({
+        path: 'deliveries',
+        populate: {
+          path: 'place',
+          model: 'locations',
+          select: 'country city street -_id'
+        }
+      }).select('-_id');
 
     done(null, deliveries);
   } catch (err) {
@@ -121,7 +131,8 @@ const addTransport = async (transport, done) => {
         path: 'client',
         model: 'clients',
         select: 'clientid -_id'
-      }}).populate({
+      },
+    }).populate({
         path: 'deliveries',
         populate: {
           path: 'place',

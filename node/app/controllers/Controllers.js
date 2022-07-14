@@ -3,7 +3,7 @@ const dbServices = require('../services/Services')
 const getDrivers = async (req, res) => {
     const drivers = await dbServices.getDrivers((err, drivers) => {
       if (err) return res.status(500).json({ message: err.message });
-      else {console.log(drivers); res.json(drivers)}
+      else {res.json(drivers)}
     });
 };
 
