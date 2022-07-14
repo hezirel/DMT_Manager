@@ -55,8 +55,28 @@ const getDeliveries = async (done) => {
           'foreignField': '_id',
           'as': 'driver',
         }},
+        { '$unwind': '$driver' },
+        { '$lookup': {
+          'from': 'placetimes',
+          'localField': 'deliveries',
+          'foreignField': '_id',
+          'as': 'deliveries',
+        }},
+        { '$unwind': '$deliveries' },
+        { '$lookup': {
+          'from': 'clients',
+          'localField': 'deliveries.client',
+          'foreignField': '_id',
+          'as': 'deliveries.client',
+        }},
+        { '$unwind': '$deliveries.place' },
+        { '$lookup': {
+          'from': 'locations',
+          'localField': 'deliveries.place',
+          'foreignField': '_id',
+          'as': 'deliveries.place',
+        }}
       ]);
-
 
     const res = await Promise.all(deliveries);
     console.log(res);
