@@ -21,7 +21,7 @@ const getDrivers = async (done) => {
 
     const ser = res.map(async (driver) => {
       const livraisons = await Promise.resolve(
-        Models.PlaceTime.find({_id: {$in: driver.deliveries}}).populate('place', 'country city street label -_id').populate('client', 'clientid -_id').select('client type place -_id'));
+        Models.PlaceTime.find({_id: {$in: driver.deliveries}}).populate('place', 'country city label -_id').populate('client', 'clientid -_id').select('client type place -_id'));
       return {
         name: driver.name,
         count: livraisons.length,
@@ -94,14 +94,14 @@ const postClient = async (client, done) => {
       if (res) {
       const update = await Models.Client.findOneAndUpdate({clientid: client.clientid}, { $push: {
         locations: await new Models.Location(client).save()
-      }}, { new: true} ).populate('locations', 'country city street label');
+      }}, { new: true} ).populate('locations', 'country city label');
       done(null, update);
       } else {
       console.log('client not found');
       const newClient = await new Models.Client({
         clientid: client.clientid,
         locations: [await new Models.Location(client).save()]
-      }).populate('locations', 'country city street label').save();
+      }).populate('locations', 'country city label').save();
       console.log(newClient);
       done(null, newClient);
       }});
@@ -115,7 +115,7 @@ const getClientLocations = async (client, done) => {
     const clientLocations = await Models.Client.findOne({clientid: client.clientid}).populate({
       path: 'locations',
       model: 'locations',
-      select: 'country city street label'
+      select: 'country city label'
     });
     done(null, clientLocations);
   } catch (err) {
@@ -138,17 +138,25 @@ const getClientOrders = async (client, done) => {
 };
 
 const addTransport = async (transport, done) => {
-  const pClient = await Models.Client.findOne({clientid: transport.pickup.client});
-  const dClient = await Models.Client.findOne({clientid: transport.dropoff.client});
+  const pClient = await Models.Client.findOne({clientid: transport.pickup.client}).populate({
+      path: 'locations',
+      model: 'locations',
+      select: 'country city label'
+    })
+  const dClient = await Models.Client.findOne({clientid: transport.dropoff.client}).populate({
+      path: 'locations',
+      model: 'locations',
+      select: 'country city label'
+    });
   const driver = await Models.Driver.findOne({name: transport.driver});
   try {
     const pickup = new Models.PlaceTime({
-      place: await new Models.Location(transport.pickup).save(),
+      place: pClient.locations[0]._id,
       client: pClient._id,
       type: 'pickup'
     }).save().then((res) => res);
     const dropoff = new Models.PlaceTime({
-      place: await new Models.Location(transport.dropoff).save(),
+      place: dClient.locations[0]._id,
       client: dClient._id,
       type: 'dropoff'
     }).save().then((res) => res);

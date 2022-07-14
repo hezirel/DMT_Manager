@@ -54,19 +54,11 @@ const postTransport = async (req, res) => {
       driver: req.body.driver,
       pickup: {
         client: req.body.pclient,
-        country: req.body.pcountry,
         city: req.body.pcity,
-        zip: req.body.pzip,
-        street: req.body.pstreet,
-        number: req.body.pnumber,
       },
       dropoff: {
         client: req.body.dclient,
-        country: req.body.dcountry,
         city: req.body.dcity,
-        zip: req.body.dzip,
-        street: req.body.dstreet,
-        number: req.body.dnumber,
       }
     }, (err, transport) => {
       if (err) return res.status(500).json({ message: err.message });
