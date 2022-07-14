@@ -142,22 +142,32 @@ const addTransport = async (transport, done) => {
       path: 'locations',
       model: 'locations',
       select: 'country city label'
-    })
+    }).then((client) => ({
+      clientid: client.clientid,
+      location: client.locations.find((location) => location.city == transport.pickup.city)
+    }));
+
   const dClient = await Models.Client.findOne({clientid: transport.dropoff.client}).populate({
       path: 'locations',
       model: 'locations',
       select: 'country city label'
-    });
+    }).then((client) => ({
+      clientid: client.clientid,
+      location: client.locations.find((location) => location.city == transport.dropoff.city)
+    }));
+
   const driver = await Models.Driver.findOne({name: transport.driver});
+
+  console.log(pClient, dClient, driver);
   try {
     const pickup = new Models.PlaceTime({
-      place: pClient.locations[0]._id,
-      client: pClient._id,
+      place: pClient.location._id,
+      clientid: pClient._id,
       type: 'pickup'
     }).save().then((res) => res);
     const dropoff = new Models.PlaceTime({
-      place: dClient.locations[0]._id,
-      client: dClient._id,
+      place: dClient.location._id,
+      clientid: dClient._id,
       type: 'dropoff'
     }).save().then((res) => res);
 
