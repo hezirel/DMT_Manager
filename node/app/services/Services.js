@@ -47,40 +47,31 @@ const getClients = async (done) => {
 
 const getDeliveries = async (done) => {
   try {
-    const deliveries = await Models.Transport
-      .aggregate([
-        { '$lookup': {
-          'from': 'drivers',
-          'localField': 'driver',
-          'foreignField': '_id',
-          'as': 'driver',
-        }},
-        { '$unwind': '$driver' },
-        { '$lookup': {
-          'from': 'placetimes',
-          'localField': 'deliveries',
-          'foreignField': '_id',
-          'as': 'deliveries',
-        }},
-        { '$unwind': '$deliveries' },
-        { '$lookup': {
-          'from': 'clients',
-          'localField': 'deliveries.client',
-          'foreignField': '_id',
-          'as': 'deliveries.client',
-        }},
-        { '$unwind': '$deliveries.place' },
-        { '$lookup': {
-          'from': 'locations',
-          'localField': 'deliveries.place',
-          'foreignField': '_id',
-          'as': 'deliveries.place',
-        }},
+    const deliveries = await Models.Transport.find({}).select("driver deliveries").populate('driver', 'name -_id').populate('deliveries', '-_id').populate({
+      path: 'deliveries',
+      populate: {
+        path: 'client',
+        model: 'clients',
+        select: 'clientid'
+      },
+    }).populate({
+      path: 'deliveries',
+      populate: {
+        path: 'place',
+        model: 'locations',
+        select: 'country city street label'
+      }
+    });
 
-      ]);
-
-    const res = await Promise.all(deliveries);
-    console.log(res);
+    const res = await Promise.all(deliveries).then((d) => d.map((delivery) => ({
+      driver: delivery.driver.name,
+      deliveries: delivery.deliveries.map((del) => ({
+        client: del.client.clientid,
+        place: del.place,
+        type: del.type,
+        date: del.date.toISOString().split('T')[0].split('-').reverse().join('/')
+      }))
+    })));
     done(null, res);
   } catch (err) {
     done(err, null);

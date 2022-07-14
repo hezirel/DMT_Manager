@@ -4,19 +4,26 @@ html(lang='en')
   body
     table.table
       tr
-        th Driver
-        th Type
-        th Client
-        th Date
-        th Country
-        th City
-        th Street
+        th Chauffeur
+        th load type
+        th pickup Date
+        th pClient
+        th pCountry
+        th pCity
+        th dDate
+        th dClient
+        th dCountry
+        th dCity
       each n in del
         tr
           td= n.driver
-          td= n.deliveries.type
-          td= n.deliveries.client
-          td= n.date
-          td= n.deliveries.place
-          td= n.deliveries.city
-          td= n.deliveries.street
+          td= n.deliveries[0].type
+          td= n.deliveries[0].date
+          td= n.deliveries[0].client
+          td= n.deliveries[0].place.country
+          td= n.deliveries[0].place.city
+          td= n.deliveries[1].place.date
+          td= n.deliveries[1].client
+          td= n.deliveries[1].place.country
+          td= n.deliveries[1].place.city
+
