@@ -38,7 +38,7 @@ const PlaceTime = mongoose.model('placetimes', placeTimeSchema);
 
 const parcelSchema = new mongoose.Schema({
   pickup: {type: mongoose.Schema.Types.ObjectId, ref: 'placetimes'},
-  dropoff: {type: mongoose.Schema.Types.ObjectId, ref: 'placetimes'},
+  dropoff: {type: mongoose.Schema.Types.ObjectId, ref: 'placetimes'}
 });
 
 const Parcel = mongoose.model('parcels', placeTimeSchema);

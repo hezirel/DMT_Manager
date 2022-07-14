@@ -49,21 +49,12 @@ const getDeliveries = async (done) => {
   try {
     const deliveries = await Models.Transport
       .aggregate([
-        { '$unwind': '$deliveries' },
         { '$lookup': {
           'from': 'drivers',
           'localField': 'driver',
           'foreignField': '_id',
-          'as': 'driver'
+          'as': 'driver',
         }},
-        { '$unwind': '$driver' },
-        { '$lookup': {
-          'from': 'parcels',
-          'localField': 'deliveries',
-          'foreignField': '_id',
-          'as': 'deliveries.parcels'
-        }},
-        { '$unwind': '$deliveries' }
       ]);
 
 
@@ -87,19 +78,20 @@ const postDriver = async (driver, done) => {
 
 const postClient = async (client, done) => {
   try {
-    const newClient = await Models.Client.findOneAndUpdate({clientid: client.clientid}, {$push: {locations: await new Models.Location(client).save() }}, {new: true}).select('-__v') || new Models.Client({clientid: client.clientid, locations: await new Models.Location(client).save()});
-    await newClient.save();
-    const res = newClient.aggregate([
-      { '$unwind': '$locations' },
-      { '$lookup': {
-        'from': 'locations',
-        'localField': 'locations',
-        'foreignField': '_id',
-        'as': 'locations'
-      }},
-      { '$unwind': '$locations' }
-    ]);
-    done(null, newClient);
+    if (Models.Client.find({clientid: client.clientid}).count() === 0)
+    {
+      const update = await Models.Client.findOneAndUpdate({clientid: client.clientid}, { $push: {
+        locations: await new Models.Location(client).save()
+      }}).populate('locations', 'country city street label');
+      done(null, update);
+    } 
+      console.log('client not found');
+      const newClient = await new Models.Client({
+        clientid: client.clientid,
+        locations: [await new Models.Location(client).save()]
+      }).populate('locations', 'country city street label');
+      console.log(newClient);
+      done(null, newClient);
   } catch (err) {
     done(err, null);
   }
@@ -150,8 +142,8 @@ const addTransport = async (transport, done) => {
     await pickup.save()
     await dropoff.save();
     const parcel = new Models.Parcel({
-        pickup: pickup,
-        dropoff: dropoff,
+        pickup: pickup._id,
+        dropoff: dropoff._id,
       }).save()
     const newTransport = new Models.Transport({
       driver: driver._id,
