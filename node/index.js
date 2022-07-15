@@ -33,6 +33,6 @@ app.listen(PORT, () => {
 
 app.set("json spaces", 2);
 app.use('/drivers', routes.driverRouter);
-app.use('/deliveries', routes.deliveryRouter);
 app.use('/clients', routes.clientRouter);
-app.use('/transports', routes.transportsRouter);
+app.use('/transports', routes.transportRouter);
+app.use('/parcels', routes.parcelRouter);

@@ -158,7 +158,7 @@ const addTransport = async (transport, done) => {
   done(null, res);
 };
 
-const getDeliveries = async (done) => {
+const getParcels = async (done) => {
   try {
     const transports = await Models.Transport.find({})
       .populate('driver')
@@ -239,5 +239,5 @@ module.exports = {
   getClients,
   getClientLocations,
   addTransport,
-  getDeliveries,
+  getParcels,
 }

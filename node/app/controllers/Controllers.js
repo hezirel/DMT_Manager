@@ -53,8 +53,8 @@ const postTransport = async (req, res) => {
     });
 };
 
-const getDeliveries = async (req, res) => {
-    const deliveries = await dbServices.getDeliveries((err, deliveries) => {
+const getParcels = async (req, res) => {
+    const deliveries = await dbServices.getParcels((err, deliveries) => {
       if (err) return res.status(500).json({ message: err.message });
       else res.render('deliveries', {del: deliveries});
     });
@@ -66,6 +66,6 @@ module.exports = {
   postClient,
   getClients,
   getClientLocations,
-  getDeliveries,
+  getParcels,
   postTransport
 }

@@ -1,8 +1,8 @@
 const express = require('express');
 const driverRouter = express.Router();
-const deliveryRouter = express.Router();
 const clientRouter = express.Router();
-const transportsRouter = express.Router();
+const transportRouter = express.Router();
+const parcelRouter = express.Router();
 
 const Controllers = require('../controllers/Controllers');
 
@@ -13,13 +13,13 @@ clientRouter.post('/add', Controllers.postClient);
 clientRouter.get('/get', Controllers.getClients);
 clientRouter.post('/list', Controllers.getClientLocations);
 
-transportsRouter.post('/add', Controllers.postTransport);
-deliveryRouter.get('/', Controllers.getDeliveries);
+transportRouter.post('/add', Controllers.postTransport);
 
+parcelRouter.get('/', Controllers.getParcels);
 
 module.exports = {
   driverRouter,
-  deliveryRouter,
+  parcelRouter,
   clientRouter,
-  transportsRouter
+  transportRouter
 }
