@@ -5,27 +5,6 @@ html(lang='fr')
     table.table
       tr
         th Chauffeur
-        th pickDate
-        th pickClient
-        th pickCountry
-        th pickCity
-        th pickLabel
-        th dropDate
-        th dropClient
-        th dropCountry
-        th dropCity
-        th dropLabel
       each n in del
         tr
           td= n.driver
-          td= n.pickup.date
-          td= n.pickup.client
-          td= n.pickup.country
-          td= n.pickup.city
-          td= n.pickup.label
-          td= n.dropoff.date
-          td= n.dropoff.client
-          td= n.dropoff.country
-          td= n.dropoff.city
-          td= n.dropoff.label
-

@@ -18,8 +18,8 @@ mongoose.connect('mongodb://mongo:27017/test', { useUnifiedTopology: true, useNe
 });
 
 app.use((req, res, next) => {
-  //console.log(`${req.method} ${req.url}`);
-  //console.log(req.body);
+  console.log(`${req.method} ${req.url}`);
+  console.log(req.body);
   next();
 });
 

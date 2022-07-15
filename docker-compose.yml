@@ -19,5 +19,5 @@ services:
     image: mongo-express
     ports:
       - "8081:8081"
-    links:
+    depends_on:
       - mongo

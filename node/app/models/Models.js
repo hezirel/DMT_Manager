@@ -25,7 +25,6 @@ const locationSchema = new mongoose.Schema({
 
 const Location = mongoose.model('locations', locationSchema);
 
-
 const clientSchema = new mongoose.Schema({
   name: {type: String, required: true},
   locations: [{type: mongoose.Schema.Types.ObjectId, ref: 'locations'}]
@@ -40,12 +39,18 @@ const placeTimeSchema = new mongoose.Schema({
 });
 const PlaceTime = mongoose.model('placetimes', placeTimeSchema);
 
+const ParcelSchema = mongoose.Schema({
+  pickup: {type: mongoose.Schema.Types.ObjectId, ref: 'placetimes'},
+  dropoff: {type: mongoose.Schema.Types.ObjectId, ref: 'placetimes'}
+});
+
+const Parcel = mongoose.model('parcels', ParcelSchema);
+
 const transportSchema = new mongoose.Schema({
   driver: {type: mongoose.Schema.Types.ObjectId, ref: 'drivers'},
   deliveries: [{
-    type: Object,
-    pickup: {type: mongoose.Schema.Types.ObjectId, ref: 'placetimes'},
-    dropoff: {type: mongoose.Schema.Types.ObjectId, ref: 'placetimes'},
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'parcels',
     required: true
   }]
 });
@@ -54,9 +59,10 @@ const Transport = mongoose.model('transports', transportSchema);
 
 module.exports = {
   Driver,
+  Vehicle,
   Client,
   Location,
-  Vehicle,
-  Transport,
   PlaceTime,
+  Parcel,
+  Transport
 };
