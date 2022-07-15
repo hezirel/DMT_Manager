@@ -5,6 +5,23 @@ html(lang='fr')
     table.table
       tr
         th Chauffeur
+        th Date Depart
+        th Client Depart
+        th Pays Depart
+        th Ville Depart
+        th Date Arrivee
+        th Client Arrivee
+        th Pays Arrivee
+        th Ville Arrivee
+        th Prix
       each n in del
         tr
           td= n.driver
+          td= n.deliveries.pickup.date
+          td= n.deliveries.pickup.client
+          td= n.deliveries.pickup.place.country
+          td= n.deliveries.pickup.place.city
+          td= n.deliveries.dropoff.date
+          td= n.deliveries.dropoff.client
+          td= n.deliveries.dropoff.place.country
+          td= n.deliveries.dropoff.place.city

@@ -161,16 +161,70 @@ const addTransport = async (transport, done) => {
 const getDeliveries = async (done) => {
   try {
     const transports = await Models.Transport.find({})
-      .select("driver deliveries")
-      .populate('driver', 'name -_id')
+      .populate('driver')
+      .populate({
+        path: 'deliveries',
+        model: 'parcels',
+        populate: {
+          path: 'pickup dropoff',
+          model: 'placetimes'
+        }
+      })
+      .populate({
+        path: 'deliveries',
+        populate: {
+          path: 'pickup dropoff',
+          model: 'placetimes'
+        }
+      })
+      .populate({
+        path: 'deliveries',
+        populate: {
+          path: 'pickup dropoff',
+          populate: {
+            path: 'place',
+            model: 'locations',
+            select: 'country city label'
+          }
+        }
+      })
+      .populate({
+        path: 'deliveries',
+        populate: {
+          path: 'pickup dropoff',
+          populate: {
+            path: 'client',
+            model: 'clients',
+            select: 'name'
+          }
+        }
+      })
       .then((transports) => transports.map((transport) => {
+        console.log(transport.deliveries);
         return {
           driver: transport.driver.name,
-          deliveries: transport.deliveries
+          deliveries: {
+            pickup: {
+              client: transport.deliveries[0].pickup.client.name,
+              place: {
+                country: transport.deliveries[0].pickup.place.country,
+                city: transport.deliveries[0].pickup.place.city,
+                label: transport.deliveries[0].pickup.place.label
+              },
+              date: new Date(transport.deliveries[0].pickup.date).toISOString().split('T')[0].split('-').reverse().join('-')
+            },
+            dropoff: {
+              client: transport.deliveries[0].dropoff.client.name,
+              place: {
+                country: transport.deliveries[0].dropoff.place.country,
+                city: transport.deliveries[0].dropoff.place.city,
+                label: transport.deliveries[0].dropoff.place.label
+              },
+              date: new Date(transport.deliveries[0].dropoff.date).toISOString().split('T')[0].split('-').reverse().join('-')
+            },
+          }
         }
-    }));
-
-    console.log(transports);
+      }));
     done(null, transports);
   } catch (err) {
     done(err, null);
