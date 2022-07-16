@@ -3,25 +3,21 @@ let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/Dev/Work/DMT_manager/backend/node
+cd ~/Dev/Work/DMT_manager/DMTback/node
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 let s:shortmess_save = &shortmess
 set shortmess=aoO
-badd +20 index.js
-badd +1 app/models/Models.js
-badd +20 app/services/Services.js
-badd +1 app/controllers/Controllers.js
-badd +12 app/routes/Routes.js
-badd +72 app/views/index.html
-badd +41 term://~/Dev/Work/DMT_manager/backend/node//37955:/bin/zsh
+badd +27 ~/Dev/Work/DMT_manager/DMTback/node/app/controllers/Transport.js
+badd +88 ~/Dev/Work/DMT_manager/DMTback/node/app/services/Transport.js
+badd +62 ~/Dev/Work/DMT_manager/DMTback/node/app/views/index.html
 argglobal
 %argdel
-$argadd ./
-edit app/services/Services.js
+$argadd .
+edit ~/Dev/Work/DMT_manager/DMTback/node/app/views/index.html
 argglobal
-balt app/models/Models.js
+balt ~/Dev/Work/DMT_manager/DMTback/node/app/services/Transport.js
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -32,13 +28,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 20 - ((7 * winheight(0) + 8) / 16)
+let s:l = 62 - ((9 * winheight(0) + 10) / 20)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 20
+keepjumps 62
 normal! 0
-lcd ~/Dev/Work/DMT_manager/backend/node
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
