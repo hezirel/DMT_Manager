@@ -1,0 +1,97 @@
+#root {
+	display: grid;
+	grid-template-columns: 0.15fr 1fr;
+	height: 100%;
+	grid-template-rows: 1fr;
+	padding: 1rem;
+	grid-gap: 1rem;
+	justify-items: center;
+	align-items: center;
+	height: 100%;
+}
+
+#sidebar {
+	display: grid;
+	width: 100%;
+	height: 100%;
+	grid-template-columns: 1fr;
+	justify-items: center;
+	align-items: center;
+	grid-gap: 0.5fr;
+	outline: 1px solid #000;
+}
+
+#main {
+	display: grid;
+	width: 100%;
+	height: 100%;
+	grid-template-columns: 1fr;
+	justify-items: left;
+	align-items: center;
+	grid-gap: 1rem;
+}
+
+#main > div {
+	border: 1px solid red;
+}
+
+#driverFormGroup {
+	display: grid;
+	width: 100%;
+	justify-items: center;
+	align-items: center;
+	padding: 1rem;
+	grid-template-columns: 1fr;
+}
+
+#clientFormGroup {
+	display: grid;
+	width: 100%;
+	justify-items: center;
+	align-items: center;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr 1fr;
+}
+
+#addClientForm {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+#clientDataForm {
+	display: grid;
+	width: 100%;
+	height: 100%;
+	justify-items: center;
+	align-items: center;
+	padding: 1rem;
+	grid-template-columns: 1fr 1fr;
+}
+
+#transportGroupForm {
+	display: grid;
+	width: 100%;
+	height: 100%;
+	justify-items: center;
+	align-items: center;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr 1fr;
+}
+
+#transportGroupForm {
+	display: grid;
+	width: 100%;
+	height: 100%;
+	justify-items: center;
+	align-items: center;
+	grid-gap: 1rem;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr 1fr;
+}
+
+#postTransport {
+	display: flex;
+	flex-direction: row;
+}

@@ -7,59 +7,69 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="x-clacks-overhead" content="GNU Terry Pratchett">
+        <link rel="stylesheet" type="text/css" href="styles/style.css">
     </header>
     <body>
-        <div>
-            <form id="diverForm" action="/drivers/add" method="post">
-                <label for="name">Driver name:</label>
-                <input type="text" id="driverName" name="name" placeholder="Driver name"> 
-                <button type="submit">Add driver</button>
-            </form>
-        </div>
-        <div>
-            <form id="getDrivers" action="/drivers/get" method="get">
-                <input type="submit" value="Get drivers">
-            </form>
-        </div>
-        <div>
-            <form id="addClientForm" action="/clients/add" method="post">
-                <label for="name">Client name:</label>
-                <input type="text" id="clientName" name="name" placeholder="Client name"> 
-                <input type="text" id="locationCountry" name="country" placeholder="Location country">
-                <input type="text" id="locationCity" name="city" placeholder="Location city">
-                <input type="text" id="locationZip" name="zip" placeholder="Location zip">
-                <input type="text" id="locationLabel" name="label" placeholder="Location label">
-                <input type="text" id="locationStreet" name="street" placeholder="Location street">
-                <input type="text" id="locationNumber" name="number" placeholder="Location number">
-                <input type="submit" value="Submit">
-            </form>
-        </div>
-        <div>
-            <form id="getClients" action="/clients/get" method="get">
-                <input type="submit" value="Get clients">
-            </form>
-        </div>
-        <div>
-            <form id="getClientLocations" action="/clients/list" method="post">
-                <input type="text" id="clientid" name="name" placeholder="Client id">
-                <input type="submit" value="Get client locations">
-            </form>
-        </div>
-        <div>
-            <form id="postTransport" action="/transports/add" method="post">
-                <input type="text" id="driverId" name="driver" placeholder="Driver id">
+        <div id="root">
+            <div id="sidebar">
+                DMT Manager
+                <a href="">Home</a>
+                <a href="">Admin</a>
+            </div>
+            <div id="main">
+                <div id="driverFormGroup">
+                    <div>
+                        <form id="driverForm" action="/drivers/add" method="post">
+                            <label for="name">Driver name:</label>
+                            <input type="text" id="driverName" name="name" placeholder="Driver name"> 
+                            <button type="submit">Add driver</button>
+                        </form>
+                    </div>
+                    <div>
+                        <form id="getDrivers" action="/drivers/get" method="get">
+                            <input type="submit" value="Get drivers">
+                        </form>
+                    </div>
+                </div>
+                <div id="clientFormGroup">
+                        <form id="addClientForm" action="/clients/add" method="post">
+                            <label for="name">Client :</label>
+                            <input type="text" id="clientName" name="name" placeholder="Client name"> 
+                            <input type="text" id="locationCountry" name="country" placeholder="Location country">
+                            <input type="text" id="locationCity" name="city" placeholder="Location city">
+                            <input type="text" id="locationZip" name="zip" placeholder="Location zip">
+                            <input type="text" id="locationLabel" name="label" placeholder="Location label">
+                            <input type="text" id="locationStreet" name="street" placeholder="Location street">
+                            <input type="text" id="locationNumber" name="number" placeholder="Location number">
+                            <input type="submit" value="Submit">
+                        </form>
+                    <div id="clientDataForm">
+                        <form id="getClients" action="/clients/get" method="get">
+                            <input type="submit" value="Get clients">
+                        </form>
+                        <form id="getClientLocations" action="/clients/list" method="post">
+                            <input type="text" id="clientid" name="name" placeholder="Client id">
+                            <input type="submit" value="Get client locations">
+                        </form>
+                    </div>
+                </div>
+                <div id="transportGroupForm">
+                    <form id="postTransport" action="/transports/add" method="post">
+                        <input type="text" id="driverId" name="driver" placeholder="Driver id">
 
-                <input type="text" id="pickupclientId" name="pclient" placeholder="Client id">
-                <input type="text" id="pickuplocationCity" name="pcity" placeholder="pickup city">
+                        <input type="text" id="pickupclientId" name="pclient" placeholder="Client id">
+                        <input type="text" id="pickuplocationCity" name="pcity" placeholder="pickup city">
 
-                <input type="text" id="dropclientId" name="dclient" placeholder="Client id">
-                <input type="text" id="droplocationCity" name="dcity" placeholder="drop city">
+                        <input type="text" id="dropclientId" name="dclient" placeholder="Client id">
+                        <input type="text" id="droplocationCity" name="dcity" placeholder="drop city">
 
-                <input type="submit" value="Add Transport">
-            </form>
-            <form action="/parcels" method="get">
-                <input type="submit" value="Get deliveries">
-            </form>
+                        <input type="submit" value="Add Transport">
+                    </form>
+                    <form action="/parcels" method="get">
+                        <input type="submit" value="Get deliveries">
+                    </form>
+                </div>
+            </div>
         </div>
     </body>
 </html>
