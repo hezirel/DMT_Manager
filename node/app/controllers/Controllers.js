@@ -14,7 +14,6 @@ const getDrivers = async (req, res) => {
     });
 };
 
-
 const postClient = async (req, res) => {
     const client = await dbServices.postClient(req.body, (err, client) => {
       if (err) return res.status(500).json({ message: err.message });
