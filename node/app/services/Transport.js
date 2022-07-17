@@ -7,29 +7,34 @@ const addTransport = async (transport, done) => {
     .then((client) => ({client: client.name, clientid: client._id, location: client.locations.find((location) => location.city === city)}));
 
   const driver = await Models.Driver.findOne({name: transport.driver}).select('name _id').then((driver) => driver._id);
-  const pClient = await fetchClient(transport.pickup.client, transport.pickup.city);
-  const dClient = await fetchClient(transport.dropoff.client, transport.dropoff.city);
 
-  const pickup = await new Models.PlaceTime({
-    client: pClient.clientid,
-    place: pClient.location._id,
-    type: 'pickup'
-  }).save();
+  const deliveries = await Promise.all(transport.deliveries.map(async (delivery) => {
+    const pClient = await fetchClient(transport.pickup.client, transport.pickup.city);
+    const dClient = await fetchClient(transport.dropoff.client, transport.dropoff.city);
 
-  const dropoff = await new Models.PlaceTime({
-    client: dClient.clientid,
-    place: dClient.location._id,
-    type: 'dropoff'
-  }).save();
+    const pickup = await new Models.PlaceTime({
+      client: pClient.clientid,
+      place: pClient.location._id,
+      type: 'pickup'
+    }).save();
 
-  const parcel = await new Models.Parcel({
-    pickup: pickup._id,
-    dropoff: dropoff._id
-  }).save();
+    const dropoff = await new Models.PlaceTime({
+      client: dClient.clientid,
+      place: dClient.location._id,
+      type: 'dropoff'
+    }).save();
+
+    const parcel = await new Models.Parcel({
+      pickup: pickup._id,
+      dropoff: dropoff._id
+    }).save();
+
+    return parcel._id;
+  }));
 
   const res = await new Models.Transport({
     driver: driver,
-    deliveries: [parcel._id]
+    deliveries,
   }).save();
 
   done(null, res);

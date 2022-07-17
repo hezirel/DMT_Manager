@@ -3,14 +3,16 @@ const dbServices = require('../services/Services')
 const postTransport = async (req, res) => {
     const transport = await dbServices.addTransport({
       driver: req.body.driver,
-      pickup: {
-        client: req.body.pclient,
-        city: req.body.pcity,
-      },
-      dropoff: {
-        client: req.body.dclient,
-        city: req.body.dcity,
-      }
+      deliveries: [{
+        pickup: {
+          client: req.body.pclient,
+          city: req.body.pcity,
+        },
+        dropoff: {
+          client: req.body.dclient,
+          city: req.body.dcity,
+        }
+      }]
     }, (err, transport) => {
       if (err) return res.status(500).json({ message: err.message });
       else res.json(transport);
