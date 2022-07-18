@@ -9,8 +9,8 @@ const addTransport = async (transport, done) => {
   const driver = await Models.Driver.findOne({name: transport.driver}).select('name _id').then((driver) => driver._id);
 
   const deliveries = await Promise.all(transport.deliveries.map(async (delivery) => {
-    const pClient = await fetchClient(transport.pickup.client, transport.pickup.city);
-    const dClient = await fetchClient(transport.dropoff.client, transport.dropoff.city);
+    const pClient = await fetchClient(delivery.pickup.client, delivery.pickup.city);
+    const dClient = await fetchClient(delivery.dropoff.client, delivery.dropoff.city);
 
     const pickup = await new Models.PlaceTime({
       client: pClient.clientid,
@@ -36,6 +36,7 @@ const addTransport = async (transport, done) => {
     driver: driver,
     deliveries,
   }).save();
+  console.log(res);
 
   done(null, res);
 };

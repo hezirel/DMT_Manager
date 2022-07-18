@@ -21,3 +21,7 @@ services:
       - "8081:8081"
     depends_on:
       - mongo
+  react:
+    build: app/
+    ports:
+      - "5000:3000"
