@@ -1,0 +1,178 @@
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.010  000.010: --- NVIM STARTING ---
+003.590  003.580: locale set
+004.628  001.038: inits 1
+004.672  000.044: window checked
+004.690  000.017: parsing arguments
+008.903  004.214: expanding arguments
+008.984  000.081: inits 2
+009.518  000.534: init highlight
+009.520  000.002: waiting for UI
+012.854  003.334: done waiting for UI
+012.870  000.016: init screen for UI
+012.910  000.041: init default mappings
+012.977  000.067: init default autocommands
+018.061  002.277  002.277: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/ftplugin.vim
+021.961  003.543  003.543: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/indent.vim
+038.668  002.241  002.241: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/syntax/synload.vim
+042.376  003.238  003.238: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/filetype.lua
+065.805  002.387  002.387: sourcing /Users/ezirel/.vim/pack/plugins/start/vim-go/ftdetect/gofiletype.vim
+066.285  023.647  021.260: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/filetype.vim
+070.205  002.877  002.877: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/scripts.vim
+070.301  041.042  009.040: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/syntax/syntax.vim
+070.674  000.105  000.105: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/filetype.lua
+070.886  000.090  000.090: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/filetype.vim
+071.064  000.027  000.027: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/ftplugin.vim
+080.463  006.129  006.129: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/ftoff.vim
+099.469  018.731  018.731: sourcing /Users/ezirel/.vim/autoload/plug.vim
+105.159  000.225  000.225: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/filetype.lua
+117.872  000.191  000.191: sourcing /Users/ezirel/.vim/pack/plugins/start/vim-go/ftdetect/gofiletype.vim
+118.127  012.680  012.488: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/filetype.vim
+118.329  000.027  000.027: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/ftplugin.vim
+118.511  000.024  000.024: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/indent.vim
+122.037  002.397  002.397: sourcing /Users/ezirel/.vim/bundle/Vundle.vim/autoload/vundle.vim
+129.194  006.790  006.790: sourcing /Users/ezirel/.vim/bundle/Vundle.vim/autoload/vundle/config.vim
+158.158  000.065  000.065: sourcing /Users/ezirel/.vim/bundle/vim-polyglot/filetype.vim
+159.080  000.069  000.069: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/filetype.vim
+161.691  001.961  001.961: sourcing /Users/ezirel/.vim/bundle/vim-polyglot/ftdetect/polyglot.vim
+165.325  002.973  002.973: sourcing /Users/ezirel/.vim/bundle/vim-javascript/ftdetect/flow.vim
+169.023  003.433  003.433: sourcing /Users/ezirel/.vim/bundle/vim-javascript/ftdetect/javascript.vim
+172.672  003.166  003.166: sourcing /Users/ezirel/.vim/bundle/vim-fugitive/ftdetect/fugitive.vim
+174.347  000.673  000.673: sourcing /Users/ezirel/.vim/pack/plugins/start/vim-go/ftdetect/gofiletype.vim
+204.366  053.715  041.374: sourcing /Users/ezirel/.vim/bundle/vim-polyglot/autoload/polyglot/init.vim
+204.391  056.156  002.441: sourcing /Users/ezirel/.vim/bundle/vim-polyglot/filetype.vim
+205.097  000.098  000.098: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/filetype.lua
+205.248  000.027  000.027: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/filetype.vim
+207.200  000.028  000.028: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/ftplugin.vim
+207.564  000.024  000.024: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/indent.vim
+207.722  181.926  037.326: sourcing /Users/ezirel/.vimrc
+217.869  009.872  009.872: sourcing /Users/ezirel/.config/vim/.vim/bundle/spaceduck/colors/spaceduck.vim
+980.814  958.026  766.228: sourcing /Users/ezirel/.config/nvim/init.vim
+980.835  004.011: sourcing vimrc file(s)
+995.188  011.307  011.307: sourcing /Users/ezirel/.config/vim/.vim/bundle/fzf/plugin/fzf.vim
+1001.398  005.349  005.349: sourcing /Users/ezirel/.config/vim/.vim/bundle/fzf.vim/plugin/fzf.vim
+1004.703  002.555  002.555: sourcing /Users/ezirel/.config/vim/.vim/bundle/zeavim.vim/plugin/zeavim.vim
+1029.673  012.880  012.880: sourcing /Users/ezirel/.config/vim/.vim/bundle/copilot.vim/autoload/copilot.vim
+1029.874  021.562  008.682: sourcing /Users/ezirel/.config/vim/.vim/bundle/copilot.vim/plugin/copilot.vim
+1040.089  009.553  009.553: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-fugitive/plugin/fugitive.vim
+1043.075  002.074  002.074: sourcing /Users/ezirel/.config/vim/.vim/bundle/which-key.nvim/plugin/which-key.vim
+1046.989  003.168  003.168: sourcing /Users/ezirel/.config/vim/.vim/bundle/nvim-lspconfig/plugin/lspconfig.vim
+1051.022  003.308  003.308: sourcing /Users/ezirel/.config/vim/.vim/bundle/trouble.nvim/plugin/trouble.vim
+1054.062  002.318  002.318: sourcing /Users/ezirel/.config/vim/.vim/bundle/nvim-web-devicons/plugin/nvim-web-devicons.vim
+1061.470  006.657  006.657: sourcing /Users/ezirel/.config/vim/.vim/bundle/hop.nvim/plugin/hop.vim
+1074.336  012.051  012.051: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-devicons/plugin/webdevicons.vim
+1077.065  002.076  002.076: sourcing /Users/ezirel/.config/vim/.vim/bundle/nvim-colorizer.lua/plugin/colorizer.vim
+1085.170  007.522  007.522: sourcing /Users/ezirel/.config/vim/.vim/bundle/indent-blankline.nvim/plugin/indent_blankline.vim
+1096.274  010.412  010.412: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-diminactive/plugin/diminactive.vim
+1099.510  002.243  002.243: sourcing /Users/ezirel/.config/vim/.vim/bundle/nightfox.nvim/plugin/nightfox.vim
+1121.708  013.730  013.730: sourcing /Users/ezirel/.config/vim/.vim/bundle/vimwiki/autoload/vimwiki/vars.vim
+1131.864  005.811  005.811: sourcing /Users/ezirel/.config/vim/.vim/bundle/vimwiki/autoload/vimwiki/u.vim
+1140.719  040.359  020.818: sourcing /Users/ezirel/.config/vim/.vim/bundle/vimwiki/plugin/vimwiki.vim
+1144.247  002.819  002.819: sourcing /Users/ezirel/.config/vim/.vim/plugin/read.vim
+1147.274  002.291  002.291: sourcing /Users/ezirel/.config/vim/.vim/plugged/indent-blankline.nvim/plugin/indent_blankline.vim
+1152.258  003.686  003.686: sourcing /usr/local/Cellar/quick-lint-js/2.4.2_1/share/nvim/site/plugin/quick-lint-js.vim
+1163.288  010.333  010.333: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/plugin/polyglot.vim
+1168.131  002.823  002.823: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/gzip.vim
+1170.979  002.540  002.540: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/health.vim
+1175.256  003.892  003.892: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/man.vim
+1189.897  005.937  005.937: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim
+1190.729  015.089  009.152: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/matchit.vim
+1197.126  006.128  006.128: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/matchparen.vim
+1204.908  007.395  007.395: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/netrwPlugin.vim
+1208.483  003.171  003.171: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/rplugin.vim
+1212.177  003.320  003.320: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/shada.vim
+1215.178  002.579  002.579: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/spellfile.vim
+1219.600  003.982  003.982: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/tarPlugin.vim
+1223.223  003.207  003.207: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/tohtml.vim
+1227.060  003.447  003.447: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/tutor.vim
+1231.638  004.144  004.144: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/zipPlugin.vim
+1380.901  142.210  142.210: sourcing /Users/ezirel/.config/vim/.vim/plugged/nvim-treesitter/plugin/nvim-treesitter.lua
+1383.383  036.976: loading rtp plugins
+1397.902  010.738  010.738: sourcing /Users/ezirel/.vim/pack/plugins/start/vim-go/autoload/go/config.vim
+1412.778  010.387  010.387: sourcing /Users/ezirel/.vim/pack/plugins/start/vim-go/autoload/go/util.vim
+1412.908  028.467  007.342: sourcing /Users/ezirel/.config/vim/.vim/pack/plugins/start/vim-go/plugin/go.vim
+1414.238  002.388: loading packages
+1425.331  010.342  010.342: sourcing /Users/ezirel/.config/vim/.vim/bundle/indentLine/after/plugin/indentLine.vim
+1434.718  003.135  003.135: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim/autoload/dracula.vim
+1434.804  008.730  005.595: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim/after/plugin/dracula.vim
+1435.663  002.352: loading after plugins
+1435.693  000.030: inits 3
+1450.040  014.347: reading ShaDa
+1454.006  003.966: opening buffers
+1457.427  003.421: BufEnter autocommands
+1457.444  000.017: editing files in windows
+1475.832  002.969  002.969: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/autoload/polyglot/ft.vim
+1479.819  002.104  002.104: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/ftplugin/html.vim
+1493.833  003.512  003.512: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/autoload/htmlcomplete.vim
+1501.503  015.554  012.042: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/autoload/htmlcomplete.vim
+1501.892  019.309  003.755: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/ftplugin/html.vim
+1519.813  010.469  010.469: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-javascript/indent/javascript.vim
+1523.354  003.071  003.071: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/indent/javascript.vim
+1526.924  003.356  003.356: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/indent/javascript.vim
+1538.371  002.926  002.926: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/after/indent/jsx.vim
+1538.406  007.376  004.450: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/after/indent/javascript-1.vim
+1545.936  002.507  002.507: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/indent/graphql.vim
+1546.170  007.451  004.944: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/after/indent/javascript-2.vim
+1546.199  018.937  004.111: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/after/indent/javascript.vim
+1554.060  047.489  011.656: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/indent/html.vim
+1556.894  002.382  002.382: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/indent/html.vim
+1563.668  004.616  004.616: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/syntax/html.vim
+1566.524  002.448  002.448: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/syntax/html/aria.vim
+1569.820  003.125  003.125: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/syntax/html/electron.vim
+1573.373  003.317  003.317: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/syntax/html/rdfa.vim
+1590.365  003.696  003.696: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-javascript/extras/jsdoc.vim
+1591.153  009.094  005.398: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-javascript/syntax/javascript.vim
+1600.260  000.342  000.342: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-javascript/extras/jsdoc.vim
+1601.062  009.095  008.753: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/syntax/javascript.vim
+1603.458  002.052  002.052: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/syntax/javascript.vim
+1629.005  005.875  005.875: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/after/syntax/jsx_pretty.vim
+1629.062  009.371  003.496: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/after/syntax/jsx.vim
+1629.078  025.380  016.008: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/after/syntax/javascript.vim
+1629.562  000.236  000.236: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim/after/syntax/javascript.vim
+1636.993  006.745  006.745: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/syntax/vb.vim
+1637.547  000.296  000.296: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/syntax/vb.vim
+1664.490  026.432  026.432: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/syntax/css.vim
+1666.906  001.891  001.891: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/syntax/css.vim
+1667.372  000.264  000.264: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim/after/syntax/css.vim
+1670.390  096.794  015.310: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/syntax/html.vim
+1672.858  002.162  002.162: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/after/syntax/html.vim
+1676.384  003.216  003.216: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim/after/syntax/html.vim
+1711.739  000.098  000.098: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/ftplugin/html.vim
+1714.029  000.936  000.936: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/ftplugin/html.vim
+1718.785  000.275  000.275: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/indent/html.vim
+1719.048  000.043  000.043: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/indent/html.vim
+1723.847  002.240  002.240: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/syntax/html.vim
+1724.547  000.438  000.438: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/syntax/html/aria.vim
+1724.733  000.077  000.077: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/syntax/html/electron.vim
+1724.902  000.067  000.067: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/syntax/html/rdfa.vim
+1727.800  000.206  000.206: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-javascript/extras/jsdoc.vim
+1728.408  002.203  001.997: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-javascript/syntax/javascript.vim
+1731.545  000.348  000.348: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-javascript/extras/jsdoc.vim
+1731.967  003.082  002.734: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/syntax/javascript.vim
+1732.240  000.047  000.047: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/syntax/javascript.vim
+1745.492  000.461  000.461: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/after/syntax/jsx_pretty.vim
+1745.528  001.750  001.288: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/after/syntax/jsx.vim
+1745.537  013.152  011.403: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/after/syntax/javascript.vim
+1745.724  000.037  000.037: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim/after/syntax/javascript.vim
+1750.943  004.736  004.736: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/syntax/vb.vim
+1751.376  000.042  000.042: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/syntax/vb.vim
+1770.783  018.501  018.501: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/syntax/css.vim
+1771.083  000.045  000.045: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/syntax/css.vim
+1771.272  000.032  000.032: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim/after/syntax/css.vim
+1774.195  049.138  007.261: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/syntax/html.vim
+1774.938  000.107  000.107: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/after/syntax/html.vim
+1775.406  000.048  000.048: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim/after/syntax/html.vim
+1795.681  086.044  032.578: sourcing /usr/local/Cellar/neovim/0.7.0/share/nvim/runtime/scripts.vim
+1822.348  005.583  005.583: sourcing /Users/ezirel/.config/vim/.vim/bundle/vim-polyglot/autoload/polyglot/sleuth.vim
+1859.284  401.716  120.157: sourcing Session.vim
+1859.297  000.138: executing command arguments
+1886.661  027.363: VimEnter autocommands
+1886.668  000.007: UIEnter autocommands
+1886.670  000.003: before starting main loop
+1980.802  094.132: first screen update
+1980.826  000.024: --- NVIM STARTED ---
